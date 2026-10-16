@@ -1,0 +1,29 @@
+{
+  "name": "inventario",
+  "version": "1.0.2",
+  "description": "Sistema de inventario",
+  "author": "Deivid Diaz",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder",
+    "electron": "electron ."
+  },
+  "dependencies": {
+    "sqlite3": "^6.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6",
+    "electron": "^44.7.1",
+    "electron-builder": "^26.15.3",
+    "electron-is-dev": "^3.0.1",
+    "wait-on": "^9.5.1"
+  },
+  "build": {
+    "appId": "com.inventario.app",
+    "productName": "Inventario",
+    "win": {
+      "target": "nsis"
+    }
+  }
+}

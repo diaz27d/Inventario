@@ -1,0 +1,23 @@
+gitignore
+
+# Dependencias de Node.js
+node_modules/
+
+# Carpetas compiladas
+dist/
+build/
+
+# Archivos de entorno con información privada
+#.env
+#.env.*
+#!.env.example
+#!.env.test
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db

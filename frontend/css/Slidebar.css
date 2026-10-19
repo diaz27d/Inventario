@@ -1,0 +1,32 @@
+.menu-expandible {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.submenu {
+    list-style: none;
+    padding-left: 35px;
+    background: #0e2240;
+}
+
+.submenu li {
+    padding: 2px 7px;
+}
+
+.submenu li a {
+    color: #cbd5e1;
+    text-decoration: none;
+    display: block;
+}
+
+.submenu li:hover {
+    background: #1e40af;
+}

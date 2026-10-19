@@ -1,0 +1,179 @@
+.categorias-page {
+    padding: 25px;
+}
+
+.categorias-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.categorias-header h1 {
+    color: #1e293b;
+}
+
+.categorias-header p {
+    color: #64748b;
+}
+
+.btn-nueva-categoria {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-weight: 600;
+}
+
+.btn-nueva-categoria:hover {
+    background: #1d4ed8;
+}
+
+.buscador-categoria {
+    background: white;
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.buscador-categoria input {
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.tabla-categorias {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0px 3px 12px rgba(0,0,0,.08);
+}
+
+.tabla-categorias table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-categorias th {
+    background: #f8fafc;
+    text-align: left;
+    padding: 16px;
+}
+
+.tabla-categorias td {
+    padding: 16px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.acciones {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-editar {
+    background: #dbeafe;
+    color: #2563eb;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-eliminar {
+    background: #fee2e2;
+    color: #ef4444;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.acciones-header{
+    display:flex;
+    gap:10px;
+}
+
+.btn-refresh{
+
+    width:40px;
+    height:40px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#0ea5e9;
+
+    color:white;
+
+    cursor:pointer;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:18px;
+
+    transition:.2s;
+}
+
+.btn-refresh:hover{
+    background:#0284c7;
+}
+
+.btn-refresh:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.girando{
+    animation:girar 1s linear infinite;
+}
+
+@keyframes girar{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.paginacion{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    gap:20px;
+
+    margin-top:20px;
+}
+
+.paginacion button{
+
+    background:#2563eb;
+    color:white;
+
+    border:none;
+
+    padding:10px 15px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+}
+
+.paginacion button:disabled{
+
+    background:#94a3b8;
+    cursor:not-allowed;
+}

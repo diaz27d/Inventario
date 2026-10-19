@@ -1,0 +1,121 @@
+.valores-page {
+    padding: 25px;
+}
+
+.valores-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.valores-header h1 {
+    color: #1e293b;
+}
+
+.valores-header p {
+    color: #64748b;
+}
+
+.btn-nuevo-valor{
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.btn-nuevo-valor:hover{
+    background:#1d4ed8;
+}
+
+.producto-info{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    background:#eff6ff;
+
+    border-left:4px solid #2563eb;
+
+    padding:15px;
+
+    border-radius:8px;
+
+    margin-bottom:20px;
+
+    color:#1e3a8a;
+}
+
+.tabla-valores{
+
+    background:white;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 2px 10px rgba(0,0,0,.08);
+}
+
+.tabla-valores table{
+
+    width:100%;
+    border-collapse:collapse;
+}
+
+.tabla-valores th{
+
+    background:#f8fafc;
+    text-align:left;
+    padding:15px;
+}
+
+.tabla-valores td{
+
+    padding:15px;
+    border-top:1px solid #e2e8f0;
+}
+
+.acciones{
+
+    display:flex;
+    gap:10px;
+}
+
+.btn-editar{
+
+    border:none;
+
+    background:#dbeafe;
+
+    color:#2563eb;
+
+    padding:10px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+}
+
+.btn-eliminar{
+
+    border:none;
+
+    background:#fee2e2;
+
+    color:#ef4444;
+
+    padding:10px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+}

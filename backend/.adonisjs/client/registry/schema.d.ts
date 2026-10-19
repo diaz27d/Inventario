@@ -67,4 +67,136 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/nombre_label_input_variables_controller').default['exportarLabelInput']>>>
     }
   }
+  'productos.productos_existentes': {
+    methods: ["POST"]
+    pattern: '/api/v1/ProductosExistentes'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/productos_controller').default['productosExistentes']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/productos_controller').default['productosExistentes']>>>
+    }
+  }
+  'productos.guardar_producto': {
+    methods: ["POST"]
+    pattern: '/api/v1/GuardarProducto'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/productos_controller').default['guardarProducto']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/productos_controller').default['guardarProducto']>>>
+    }
+  }
+  'productos.actualizar_producto': {
+    methods: ["PUT"]
+    pattern: '/api/v1/ActualizarProducto'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/productos_controller').default['actualizarProducto']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/productos_controller').default['actualizarProducto']>>>
+    }
+  }
+  'productos.productos_combos': {
+    methods: ["POST"]
+    pattern: '/api/v1/ProductosCombos'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/productos_controller').default['productosCombos']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/productos_controller').default['productosCombos']>>>
+    }
+  }
+  'categorias.categorias_existentes': {
+    methods: ["POST"]
+    pattern: '/api/v1/CategoriasExistentes'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/categorias_controller').default['CategoriasExistentes']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/categorias_controller').default['CategoriasExistentes']>>>
+    }
+  }
+  'categorias.categorias_combos': {
+    methods: ["POST"]
+    pattern: '/api/v1/CategoriasCombos'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/categorias_controller').default['CategoriasCombos']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/categorias_controller').default['CategoriasCombos']>>>
+    }
+  }
+  'categorias.guardar_categoria': {
+    methods: ["PUT"]
+    pattern: '/api/v1/CategoriasGuardar'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/categorias_controller').default['guardarCategoria']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/categorias_controller').default['guardarCategoria']>>>
+    }
+  }
+  'marcas.marcas_existentes': {
+    methods: ["POST"]
+    pattern: '/api/v1/MarcasExistentes'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/marcas_controller').default['MarcasExistentes']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/marcas_controller').default['MarcasExistentes']>>>
+    }
+  }
+  'marcas.marcas_combos': {
+    methods: ["POST"]
+    pattern: '/api/v1/MarcasCombos'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/marcas_controller').default['MarcasCombos']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/marcas_controller').default['MarcasCombos']>>>
+    }
+  }
+  'marcas.guardar_marca': {
+    methods: ["PUT"]
+    pattern: '/api/v1/MarcasGuardar'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/marcas_controller').default['guardarMarca']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/marcas_controller').default['guardarMarca']>>>
+    }
+  }
+  'inventarios.registrar_inventario': {
+    methods: ["PUT"]
+    pattern: '/api/v1/GuardarInventario'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/inventarios_controller').default['registrarInventario']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/inventarios_controller').default['registrarInventario']>>>
+    }
+  }
 }

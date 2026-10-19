@@ -5,7 +5,11 @@
 
 export const controllers = {
   AccessTokens: () => import('#controllers/access_tokens_controller'),
+  Categorias: () => import('#controllers/categorias_controller'),
+  Inventarios: () => import('#controllers/inventarios_controller'),
+  Marcas: () => import('#controllers/marcas_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),
   NombreLabelInputVariables: () => import('#controllers/nombre_label_input_variables_controller'),
+  Productos: () => import('#controllers/productos_controller'),
   Profile: () => import('#controllers/profile_controller'),
 }

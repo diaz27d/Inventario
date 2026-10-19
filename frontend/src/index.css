@@ -109,3 +109,7 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+.swal2-container {
+    z-index: 999999 !important;
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ENDPOINTS } from '../config/api'
+import Swal from 'sweetalert2'
 
 import '../../css/Login.css'
 
@@ -52,14 +53,46 @@ function Login() {
       const data = await response.json()
       
       if(data.data){
-        alert('Inicio exitoso')
-        navigate('/home')
+        
+        Swal.fire({
+          icon: 'success',
+          title: 'Bienvenido',
+          html: `<b>${data.data.user["fullName"]}</b> ha iniciado sesión correctamente`,
+          timer: 1500,
+          showConfirmButton: false
+        })
+
+        localStorage.setItem(
+          "token",
+          data.data.token
+        );
+
+        localStorage.setItem(
+          "user", JSON.stringify(data.data.user)
+        );
+
+        setTimeout(() => {
+          navigate('/home')
+        }, 1500)
+        
       }else if(data.errors){
-        alert('Inicio fallido ' + data.errors[0].message)
+        Swal.fire({
+          icon: 'error',
+          title: 'Acceso denegado',
+          text: data.errors[0].message,
+          confirmButtonColor: '#dc2626',
+          background: '#fff',
+          color: '#1e293b'
+        })
       }
     } catch (error) {
       console.error(error)
-      alert('Error al iniciar sesión')
+      Swal.fire({
+        icon: 'warning',
+        title: 'Error de conexión',
+        text: 'No fue posible comunicarse con el servidor',
+        confirmButtonColor: '#f59e0b'
+      })
     }
   }
 

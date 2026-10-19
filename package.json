@@ -24,6 +24,29 @@
     "productName": "Inventario",
     "win": {
       "target": "nsis"
-    }
+    },
+    "asar": true,
+    "extraResources": [
+      {
+        "from": "backend/build",
+        "to": "backend/build"
+      },
+      {
+        "from": "backend/node_modules",
+        "to": "backend/node_modules"
+      },
+      {
+        "from": "backend/.env",
+        "to": "backend/.env"
+      },
+      {
+        "from": "backend/database",
+        "to": "backend/database"
+      },
+      {
+        "from": "node-runtime/node.exe",
+        "to": "node/node.exe"
+      }
+    ]
   }
 }

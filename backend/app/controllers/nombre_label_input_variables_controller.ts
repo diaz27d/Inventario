@@ -5,7 +5,7 @@ export default class NombreLabelInputVariablesController {
     async exportarLabelInput({response}: HttpContext){
         const label = [
             { id: 1, title: 'Sistema de Inventario' },
-            { id: 2, title: 'Tienda el ciclista' },
+            { id: 2, title: 'Tienda el Ciclista' },
         ]
 
         return response.json(label)

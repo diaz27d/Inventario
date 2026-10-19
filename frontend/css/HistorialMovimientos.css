@@ -1,0 +1,59 @@
+.historial-page{
+    padding:25px;
+}
+
+.card-historial{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+}
+
+.buscar-movimiento{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:20px 0;
+    padding:10px;
+    border:1px solid #dbe2ea;
+    border-radius:8px;
+}
+
+.buscar-movimiento input{
+    border:none;
+    outline:none;
+    width:100%;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    border:1px solid #e5e7eb;
+    padding:12px;
+}
+
+th{
+    background:#f8fafc;
+}
+
+.badge-entrada{
+    background:#dcfce7;
+    color:#15803d;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.badge-salida{
+    background:#fee2e2;
+    color:#dc2626;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}

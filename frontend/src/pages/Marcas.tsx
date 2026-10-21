@@ -8,6 +8,7 @@ import {
   FaSearch,
   FaSyncAlt
 } from "react-icons/fa";
+import EditarMarcaModal from '../pages/EditarMarcaModal'
 
 import "../../css/Marcas.css";
 
@@ -24,6 +25,8 @@ function Marcas() {
   const [pagina, setPagina] = useState(1);
   const [totalPaginas, setTotalPaginas] = useState(1);
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [marcaSeleccionada, setMarcaSeleccionada] = useState<any>(null)
+  const [mostrarEditar, setMostrarEditar] = useState(false);
 
     useEffect(() => { 
       cargarMarcasExistentes()
@@ -149,6 +152,7 @@ function Marcas() {
               <tr>
                 <th>ID</th>
                 <th>Marca</th>
+                <th>Acciones</th>
               </tr>
 
             </thead>
@@ -166,6 +170,17 @@ function Marcas() {
                   </td>
 
                   <td>{marca.nombre_marca}</td>
+
+                                          <td className="acciones">
+
+                        <button className="btn-editar"
+                            onClick={() => {
+                                setMarcaSeleccionada(marca);
+                                setMostrarEditar(true);
+                            }}>
+                            <FaEdit />
+                        </button>
+                        </td>
 
                 </tr>
 
@@ -199,6 +214,17 @@ function Marcas() {
         </div>
           )
         }
+
+        <EditarMarcaModal
+          abierto={mostrarEditar}
+          marca={marcaSeleccionada}
+          onClose={() =>
+              setMostrarEditar(false)
+          }
+          cargarMarcasExistentes={
+              cargarMarcasExistentes
+          }
+      />
 
       </div>
 

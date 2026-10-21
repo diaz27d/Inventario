@@ -8,7 +8,12 @@ import {
   FaSignOutAlt,
   FaClipboardList,
   FaChartBar,
-  FaHistory
+  FaHistory,
+  FaUsers,
+  FaUserTie,
+  FaMoneyBillWave,
+  FaChevronDown,
+  FaChevronUp
 } from "react-icons/fa";
 
 import {  } from "react-router-dom";
@@ -21,6 +26,7 @@ function Sidebar() {
     const navigate = useNavigate();
 
     const [inventarioAbierto, setInventarioAbierto] = useState(false);
+    const [clientesAbierto, setClientesAbierto] = useState(false);
 
     const cerrarSesion = async () => {
 
@@ -131,6 +137,38 @@ function Sidebar() {
             <li>
               <Link to="/historial-movimientos">
                 <FaClipboardList/> Historial Movimientos
+              </Link>
+            </li>
+
+          </ul>
+        )}
+
+        <li
+          onClick={() => setClientesAbierto(!clientesAbierto)}
+          className="menu-expandible"
+        >
+          <div className="menu-item">
+            <FaUsers />
+            <span>Clientes</span>
+          </div>
+
+          <span>
+            {clientesAbierto ? "▼" : "▶"}
+          </span>
+        </li>
+
+        {clientesAbierto && (
+          <ul className="submenu">
+
+            <li>
+              <Link to="/clientes">
+                <FaUserTie/> Gestión Clientes
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/deudas-clientes">
+                <FaMoneyBillWave/> Deudas Clientes
               </Link>
             </li>
 

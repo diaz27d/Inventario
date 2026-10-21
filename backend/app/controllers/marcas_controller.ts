@@ -86,4 +86,38 @@ export default class MarcasController {
             'Marca registrada correctamente'
         });
     }
+
+    async actualizarMarca({ request, response }: HttpContext) {
+
+        const {
+            id_marca,
+            nombre_marca
+        } = request.only([
+            'id_marca',
+            'nombre_marca'
+        ])
+
+        if (!nombre_marca?.trim()) {
+
+            return response.badRequest({
+                message:
+                    'Debe ingresar el nombre de la marca'
+            })
+        }
+
+        await db
+            .from('marca')
+            .where(
+                'id_marca',
+                id_marca
+            )
+            .update({
+                nombre_marca: nombre_marca
+            })
+
+        return response.ok({
+            message:
+                'Marca actualizada correctamente'
+        })
+    }
 }

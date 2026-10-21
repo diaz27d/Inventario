@@ -7,9 +7,10 @@ import CategoriaModal from "../pages/CategoriaModal";
 import {
   FaPlus,
   FaSearch,
-  FaSyncAlt
+  FaSyncAlt,
+  FaEdit
 } from "react-icons/fa";
-
+import EditarCategoriaModal from '../pages/EditarCategoriaModal'
 import "../../css/Categorias.css";
 
 interface CategoriExi {
@@ -25,6 +26,8 @@ function Categorias() {
   const [pagina, setPagina] = useState(1);
   const [totalPaginas, setTotalPaginas] = useState(1);
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [mostrarEditar, setMostrarEditar] = useState(false);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<any>(null);
   
   const cargarCategoriExistentes = async (
         paginaActual = 1,
@@ -148,6 +151,7 @@ function Categorias() {
               <tr>
                 <th>ID</th>
                 <th>Nombre Categoría</th>
+                <th>Acciones</th>
               </tr>
             </thead>
 
@@ -166,6 +170,23 @@ function Categorias() {
                   <td>
                     {categoria.nombre_categoria}
                   </td>
+
+                  <td className="acciones">
+
+                  <button
+                    className="btn-editar"
+                    onClick={() => {
+
+                      setCategoriaSeleccionada(categoria);
+
+                      setMostrarEditar(true);
+
+                    }}
+                  >
+                    <FaEdit />
+                  </button>
+
+                </td>
 
                 </tr>
 
@@ -195,6 +216,17 @@ function Categorias() {
             </button>
 
         </div>
+
+        <EditarCategoriaModal
+            abierto={mostrarEditar}
+            categoria={categoriaSeleccionada}
+            onClose={() =>
+                setMostrarEditar(false)
+            }
+            cargarCategoriExistentes={
+                cargarCategoriExistentes
+            }
+        />
 
         </div>
             )

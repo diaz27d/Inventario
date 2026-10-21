@@ -94,4 +94,58 @@ export default class CategoriasController {
             'Categoría registrada correctamente'
         })
     }
+
+    async actualizarCategoria({ request, response }: HttpContext) {
+
+        const {
+            id_categoria,
+            nombre_categoria
+        } = request.only([
+            'id_categoria',
+            'nombre_categoria'
+        ])
+
+        if (!nombre_categoria?.trim()) {
+
+            return response.badRequest({
+                message:
+                    'Debe ingresar el nombre de la categoría'
+            })
+        }
+
+        const existe = await db
+            .from('categorias')
+            .where(
+                'nombre_categoria',
+                nombre_categoria
+            )
+            .whereNot(
+                'id_categoria',
+                id_categoria
+            )
+            .first()
+
+        if (existe) {
+
+            return response.badRequest({
+                message:
+                    'Ya existe una categoría con ese nombre'
+            })
+        }
+
+        await db
+            .from('categorias')
+            .where(
+                'id_categoria',
+                id_categoria
+            )
+            .update({
+                nombre_categoria: nombre_categoria
+            })
+
+        return response.ok({
+            message:
+                'Categoría actualizada correctamente'
+        })
+    }
 }

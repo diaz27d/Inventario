@@ -9,12 +9,18 @@ export default class InventariosController {
         observacion,
         productos, 
         usuario,
-        totalMovimiento
+        totalMovimiento,
+        id_cliente,
+        valor_pagado,
+        cuenta_por_cobrar
         } = request.only([
         'observacion',
         'productos',
         'usuario',
-        'totalMovimiento'
+        'totalMovimiento',
+        'id_cliente',
+        'valor_pagado',
+        'cuenta_por_cobrar'
         ])
 
     if (!productos || productos.length === 0) {
@@ -50,6 +56,9 @@ export default class InventariosController {
                 valor_total: totalMovimiento,
                 usuario: usuario,
                 fecha_movimiento: fecha,
+                id_cliente: id_cliente,
+                valor_pagado: valor_pagado,
+                cuenta_por_cobrar: cuenta_por_cobrar
         })
 
       for (const producto of productos) {

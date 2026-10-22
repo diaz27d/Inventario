@@ -1,0 +1,185 @@
+.deudas-page {
+    padding: 30px;
+    background: #f5f7fb;
+    min-height: 100vh;
+}
+
+.deudas-header {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.deudas-header h1 {
+
+    color: #1e293b;
+
+    font-size: 60px;
+}
+
+.deudas-header p {
+
+    color: #64748b;
+}
+
+.acciones-header {
+
+    display: flex;
+
+    gap: 10px;
+}
+
+.btn-refresh {
+
+    width: 48px;
+    height: 48px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #0ea5e9;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+.buscador {
+
+    background: white;
+
+    padding: 12px 15px;
+
+    display: flex;
+
+    gap: 10px;
+
+    align-items: center;
+
+    border-radius: 12px;
+
+    margin-bottom: 20px;
+}
+
+.buscador input {
+
+    border: none;
+
+    outline: none;
+
+    width: 100%;
+}
+
+.tabla-deudas {
+
+    background: white;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+}
+
+.tabla-deudas table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.tabla-deudas th {
+
+    background: #f8fafc;
+
+    color: #334155;
+
+    text-align: left;
+
+    padding: 15px;
+}
+
+.tabla-deudas td {
+
+    padding: 15px;
+
+    border-top: 1px solid #e2e8f0;
+}
+
+.deuda-valor {
+
+    color: #dc2626;
+
+    font-weight: 700;
+}
+
+.estado-pendiente {
+
+    background: #fee2e2;
+
+    color: #b91c1c;
+
+    padding: 6px 12px;
+
+    border-radius: 999px;
+
+    font-weight: 600;
+}
+
+.estado-saldado {
+
+    background: #dcfce7;
+
+    color: #166534;
+
+    padding: 6px 12px;
+
+    border-radius: 999px;
+
+    font-weight: 600;
+}
+
+.btn-ver {
+
+    border: none;
+
+    background: #dbeafe;
+
+    color: #2563eb;
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.paginacion {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 20px;
+}
+
+.paginacion button {
+
+    background: #2563eb;
+
+    color: white;
+
+    border: none;
+
+    padding: 10px 15px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}

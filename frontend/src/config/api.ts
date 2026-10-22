@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:51829/api/v1'
+const API_URL = 'http://localhost:63696/api/v1'
 
 export const ENDPOINTS = {
   LOGIN: `${API_URL}/auth/login`,
@@ -22,6 +22,12 @@ export const ENDPOINTS = {
   CLIENTES: `${API_URL}/ClientesExistentes`,
   GUARDARCLIENTES: `${API_URL}/GuardarClientes`,
   ACTUALIZARCLIENTE: `${API_URL}/ActualizarCliente`,
+  CLIENTECOMBO: `${API_URL}/ClienteCombo`,
+  MEDIOSPAGOCOMBO: `${API_URL}/MediosPago`,  
+  CLIENTEDEUDAS: `${API_URL}/DeudasClientes`,
+  VENTASPENDIENTESCLIENTE: `${API_URL}/VentasPendientesCliente`,
+  DETALLEVENTA: `${API_URL}/DetalleVenta`,
+  REGISTRARABONO: `${API_URL}/RegistrarAbono`,  
 }
 
 export default API_URL

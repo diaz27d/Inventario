@@ -184,7 +184,6 @@ debugger;
                     <th>Nombre</th>
                     <th>Documento</th>
                     <th>Teléfono</th>
-                    <th>Deuda</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
@@ -202,12 +201,7 @@ debugger;
                     <td>{cliente.nombre_cliente}</td>
                     <td>{cliente.documento_cliente}</td>
                     <td>{cliente.telefono_cliente}</td>
-
-                    <td>
-                        $
-                        {Number(cliente.deuda_cliente || 0).toLocaleString("es-CO")}
-                    </td>
-
+                    
                     <td>
                         <span
                         className={

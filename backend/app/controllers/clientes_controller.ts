@@ -354,7 +354,7 @@ export default class ClientesController {
         'valor_total_movimiento'
         )
         .where(
-        'id_movimiento',
+        'id_valor_total',
         id_movimiento
         )
         .first()
@@ -394,7 +394,7 @@ export default class ClientesController {
         'valor_total_movimiento'
         )
         .where(
-        'id_movimiento',
+        'id_Valor_total',
         id_movimiento
         )
         .update({

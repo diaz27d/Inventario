@@ -10,19 +10,21 @@ interface Props {
     abierto: boolean;
     cliente: any;
     onClose: () => void;
+    recargarDeudas: () => Promise<void>;
 }
 
 function DetalleDeudaModal({
     abierto,
     cliente,
-    onClose
+    onClose,
+    recargarDeudas
 }: Props) {
 
     const [ventas, setVentas] = useState<any[]>([]);
     const [ventaSeleccionada, setVentaSeleccionada] = useState<any>(null);
     const [detalleVenta, setDetalleVenta] = useState<any[]>([]);
     const [resumenVenta, setResumenVenta] = useState<any>(null);
-    const [abono, setAbono] = useState<number>(0);
+    const [abono, setAbono] = useState("");
 
     useEffect(() => {
 
@@ -118,15 +120,38 @@ function DetalleDeudaModal({
     const registrarAbono =
         async () => {
 
-        if (
-            !ventaSeleccionada
-        ) {
+        if (!ventaSeleccionada) {
 
             Swal.fire({
                 icon: "warning",
                 title: "Error",
                 text:
                     "Seleccione una venta"
+            });
+
+            return;
+        }
+        const valorAbono =
+            Number(
+            abono.replace(/\./g, "")
+        );
+
+        debugger;
+        if(valorAbono == 0){
+            Swal.fire({
+                icon: "warning",
+                title: "Error",
+                text: "El abono debe ser mayor a cero"
+            });
+
+            return;
+        }
+
+        if(valorAbono > Number(resumenVenta?.cuenta_por_cobrar || 0 )){
+            Swal.fire({
+                icon: "warning",
+                title: "Error",
+                text: "El abono no puede ser mayor a la cuenta por cobrar"
             });
 
             return;
@@ -147,7 +172,7 @@ function DetalleDeudaModal({
                             id_movimiento:
                                 ventaSeleccionada.value,
 
-                            abono
+                            abono: valorAbono
                         })
                     }
                 );
@@ -155,9 +180,13 @@ function DetalleDeudaModal({
             const data =
                 await response.json();
 
-            if (
-                data.success
-            ) {
+            if (data.success) {
+                setAbono("");
+                setResumenVenta(null);
+                setDetalleVenta([]);
+                setVentaSeleccionada(null);
+                setVentas([]);
+                await recargarDeudas();
 
                 Swal.fire({
                     icon: "success",
@@ -180,6 +209,16 @@ function DetalleDeudaModal({
 
     if (!abierto)
         return null;
+
+    const cerrarModal = () => {
+        setAbono("");
+        setResumenVenta(null);
+        setDetalleVenta([]);
+        setVentaSeleccionada(null);
+        setVentas([]);
+        onClose();
+        recargarDeudas();
+    };
 
     return (
 
@@ -245,6 +284,14 @@ function DetalleDeudaModal({
                                         opcion?.value
                                     );
                                 }}
+                            menuPosition="fixed"
+                            menuPortalTarget={document.body}
+                            styles={{
+                                menuPortal: (base) => ({
+                                    ...base,
+                                    zIndex: 9999
+                                })
+                            }}
                         />
 
                     </div>
@@ -363,18 +410,22 @@ function DetalleDeudaModal({
                                 </label>
 
                                 <input
-                                    type="number"
-                                    min="0"
+                                    type="text"
                                     value={abono}
-                                    onChange={(
-                                        e
-                                    ) =>
+                                    placeholder="0"
+                                    onChange={(e) => {
+
+                                        const valor =
+                                            e.target.value.replace(/\D/g, "");
+
                                         setAbono(
-                                            Number(
-                                                e.target.value
-                                            )
-                                        )
-                                    }
+                                            valor
+                                                ? Number(valor)
+                                                    .toLocaleString("es-CO")
+                                                : ""
+                                        );
+
+                                    }}
                                 />
 
                             </div>
@@ -389,7 +440,7 @@ function DetalleDeudaModal({
 
                     <button
                         className="btn-cancelar"
-                        onClick={onClose}
+                        onClick={cerrarModal}
                     >
                         Cancelar
                     </button>

@@ -319,6 +319,12 @@ function DeudasClientes() {
           onClose={() =>
               setMostrarModalDeuda(false)
           }
+           recargarDeudas={() =>
+              cargarDeudas(
+                  pagina,
+                  busqueda
+              )
+          }
       />
 
     </Layout>

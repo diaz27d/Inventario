@@ -56,6 +56,6 @@ router
     router.post('DeudasClientes', [controllers.Clientes, 'DeudasClientes']) 
     router.post('VentasPendientesCliente', [controllers.Clientes, 'ventasPendientesCliente']) 
     router.post('DetalleVenta', [controllers.Clientes, 'detalleVenta']) 
-    router.post('RegistrarAbono', [controllers.Clientes, 'registrarAbono']) 
+    router.put('RegistrarAbono', [controllers.Clientes, 'registrarAbono']) 
   })
   .prefix('/api/v1')

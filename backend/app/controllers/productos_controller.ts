@@ -53,7 +53,7 @@ export default class ProductosController {
             'p.descripcion_producto',
             'p.estado_producto'
         )
-        .orderBy('p.id_producto', 'desc')
+        .orderBy('p.cantidad_producto', 'asc')
         .paginate(page, limit);
         //await new Promise((resolve) => setTimeout(resolve, 5000));
 
@@ -149,27 +149,53 @@ export default class ProductosController {
             })
             }
 
-        const [id] = await db
-        .table('productos')
-        .insert({
-            nombre_producto: datos.nombre_producto,
-            categoria_producto: datos.id_categoria,
-            marca_producto: datos.id_marca,
-            precio_producto: datos.precio_producto,
-            precio_adquirido_producto: datos.precio_adquirido_producto,
-            cantidad_producto: datos.cantidad_producto,
-            descripcion_producto: datos.descripcion_producto,
-            email: datos.email,
-            codigo_producto: (datos.nombre_producto + datos.id_categoria + datos.id_marca),
-            estado_producto: 1,
-            fecha_producto: fecha
-        })
+        const cantidadProductosPermitidos = await db
+            .from('parametros')
+            .select(
+            'valor'
+            )
+            .where(
+            'id_parametro', 2
+        )
 
-        return response.ok({
-            success: true,
-            id_producto: id,
-            message: 'Producto guardado correctamente'
-        })
+        const Numeroproductos =
+            await db
+            .from('productos')
+            .count(
+                '* as total'
+            )
+            .first()
+
+        if(cantidadProductosPermitidos[0].valor == 0 && cantidadProductosPermitidos[0].valor <= Numeroproductos){
+
+            const [id] = await db
+            .table('productos')
+            .insert({
+                nombre_producto: datos.nombre_producto,
+                categoria_producto: datos.id_categoria,
+                marca_producto: datos.id_marca,
+                precio_producto: datos.precio_producto,
+                precio_adquirido_producto: datos.precio_adquirido_producto,
+                cantidad_producto: datos.cantidad_producto,
+                descripcion_producto: datos.descripcion_producto,
+                email: datos.email,
+                codigo_producto: (datos.nombre_producto + datos.id_categoria + datos.id_marca),
+                estado_producto: 1,
+                fecha_producto: fecha
+            })
+
+            return response.ok({
+                success: true,
+                id_producto: id,
+                message: 'Producto guardado correctamente'
+            })
+            
+        }else{
+            return response.badRequest({
+                success: false,
+                message: 'Ya se alcanzo el número de productos máximos, por favor comunicarse con el administrador.'
+            })
+        }
     }
 
     async actualizarProducto({ request, response }: HttpContext) {

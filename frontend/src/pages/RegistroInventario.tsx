@@ -270,6 +270,12 @@ function RegistroInventario() {
         setMedioPagoSeleccionado(null);
         setValorPagado(0);
 
+        window.dispatchEvent(
+            new Event(
+                "actualizarNotificaciones"
+            )
+        );
+
         Swal.fire({
           icon: 'success',
           title: 'Producto registrado',

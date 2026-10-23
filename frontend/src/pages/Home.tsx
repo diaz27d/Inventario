@@ -1,95 +1,232 @@
-import '../../css/Home.css'
-import { useNavigate } from "react-router-dom";
-import { useEffect } from 'react';
+import { useEffect, useState } from "react";
+
 import Layout from "../layaouts/Layaout";
 
+import {
+  FaBox,
+  FaWarehouse,
+  FaShoppingCart,
+  FaTags
+} from "react-icons/fa";
 
+import { ENDPOINTS } from "../config/api";
 
-function Home() {
+import "../../css/Home.css";
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      navigate("/");
-    }
-
-  }, []);
-  
-
-
-  return (
-    <Layout>
-      <div className="dashboard">
-        {/* Contenido */}
-        <main className="content">
-
-          <header className="header">
-            <h2>Bienvenido aquí tienes un resumen del sistema de inventario</h2>
-          </header>
-
-          {/* Tarjetas */}
-          <section className="cards">
-
-            <div className="card blue">
-              <h3>Productos</h3>
-              <span>120</span>
-            </div>
-
-            <div className="card green">
-              <h3>Inventario</h3>
-              <span>890</span>
-            </div>
-
-            <div className="card yellow">
-              <h3>Ventas Hoy</h3>
-              <span>$3.250</span>
-            </div>
-
-            <div className="card purple">
-              <h3>Categorías</h3>
-              <span>10</span>
-            </div>
-
-          </section>
-
-          {/* Gráfico y actividad */}
-          <section className="dashboard-bottom">
-
-            <div className="chart-container">
-              <h3>Entradas vs Salidas</h3>
-
-              <div className="fake-chart">
-                <div style={{height: "80%"}}></div>
-                <div style={{height: "50%"}}></div>
-                <div style={{height: "70%"}}></div>
-                <div style={{height: "40%"}}></div>
-                <div style={{height: "90%"}}></div>
-              </div>
-
-            </div>
-
-            <div className="activity">
-              <h3>Actividad reciente</h3>
-
-              <ul>
-                <li>✅ Entrada de portátil HP</li>
-                <li>📤 Salida de impresora Epson</li>
-                <li>➕ Nuevo producto registrado</li>
-                <li>✏️ Categoría actualizada</li>
-              </ul>
-
-            </div>
-
-          </section>
-
-        </main>
-
-      </div>
-    </Layout>
-  );
+interface Label {
+  id: number;
+  title: string;
 }
 
-export default Home;
+function Dashboard() {
+
+  const [dashboard, setDashboard] = useState<any>(null);
+  const [labelInput, setLabelInputs] = useState<Label[]>([])
+
+  const cargarDashboard = async () => {
+
+    try {
+
+      const response =
+        await fetch(
+          ENDPOINTS.DASBOARD,
+          {
+            method: "POST"
+          }
+        );
+
+      const data =
+        await response.json();
+
+      setDashboard(data);
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+
+  };
+
+  useEffect(() => {
+
+    cargarDashboard();
+
+  }, []);
+
+    useEffect(() => {
+    const cargarLabels = async () => {
+      try {
+
+        const response = await fetch(
+          ENDPOINTS.LABELS
+        )
+
+        const data = await response.json()
+
+        setLabelInputs(data ?? [])
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    cargarLabels()
+  }, [])
+
+  return (
+
+    <Layout>
+
+      <div className="dashboard-page">
+
+        <div className="bienvenida-card">
+
+          <h2>
+            Aquí tienes un resumen del sistema de inventario de {labelInput?.[1]?.title}
+          </h2>
+
+        </div>
+
+        <div className="dashboard-cards">
+
+          <div className="dashboard-card card-productos">
+
+            <FaBox />
+
+            <span>
+              Productos
+            </span>
+            
+            <strong>
+              { dashboard?.productos || 0 }
+            </strong>
+
+          </div>
+
+          <div className="dashboard-card card-inventario">
+
+            <FaWarehouse />
+
+            <span>
+              Inventario
+            </span>
+
+            <strong>
+
+              { dashboard?.inventario || 0 }
+
+            </strong>
+
+          </div>
+
+          <div className="dashboard-card card-ventas">
+
+            <FaShoppingCart />
+
+            <span>
+              Ventas Hoy
+            </span>
+
+            <strong>
+              $
+              {Number( dashboard?.ventasHoy || 0 ).toLocaleString( "es-CO" )}
+
+            </strong>
+
+          </div>
+
+          <div className="dashboard-card card-categorias">
+
+            <FaTags />
+
+            <span>
+              Categorías
+            </span>
+
+            <strong>
+              { dashboard?.categorias || 0 }
+            </strong>
+
+          </div>
+
+        </div>
+
+        <div className="dashboard-grid">
+
+          <div className="dashboard-panel">
+
+            <h3>
+              Últimas Ventas
+            </h3>
+
+            {
+              dashboard?.ultimasVentas?.map(
+                (
+                  venta: any
+                ) => (
+
+                <div className="item-dashboard">
+
+                  <span className="venta-id">
+                      Venta #{venta.id_valor_total}
+                  </span>
+
+                  <span className="venta-cliente">
+                      {venta.nombre_cliente}
+                  </span>
+
+                  <span className="venta-total">
+
+                      $
+
+                      {Number(venta.valor_pagado ).toLocaleString("es-CO")}
+
+                  </span>
+
+              </div>
+
+              ))
+            }
+
+          </div>
+            <div className="dashboard-grid">
+              <div className="dashboard-panel">
+
+                <h3>
+                    Productos con Menor Stock
+                </h3>
+
+                {dashboard?.menorStock?.map(
+                    (producto: any) => (
+
+                    <div
+                        key={producto.id_producto}
+                        className="stock-item"
+                    >
+
+                        <span className="stock-nombre">
+                            {producto.nombre_producto}
+                        </span>
+
+                        <span className="stock-cantidad">
+                            {producto.cantidad_producto}
+                        </span>
+
+                    </div>
+
+                ))}
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </Layout>
+
+  );
+
+}
+
+export default Dashboard;

@@ -175,4 +175,62 @@ export default class InventariosController {
       })
     }
   }
+
+  async historialMovimientos({ request, response }: HttpContext) {
+
+    const page = request.input('page', 1)
+    const limit = request.input('limit', 5)
+    const busqueda = request.input('busqueda', '')
+
+    const movimientos = await db
+      .from(
+        'valor_total_movimiento as vtm'
+      )
+      .leftJoin(
+        'clientes as c',
+        'c.id_cliente',
+        'vtm.id_cliente'
+      )
+      .select(
+        'vtm.id_valor_total',
+        'vtm.fecha_movimiento',
+        'vtm.valor_total',
+        'vtm.valor_pagado',
+        'vtm.cuenta_por_cobrar',
+        'vtm.usuario',
+        'c.nombre_cliente',
+        'c.documento_cliente'
+      )
+      .if(busqueda, (query) => {
+
+        query.where((subquery) => {
+
+          subquery
+            .whereLike(
+              'c.nombre_cliente',
+              `%${busqueda}%`
+            )
+            .orWhereLike(
+              'c.documento_cliente',
+              `%${busqueda}%`
+            )
+            .orWhereLike(
+              'vtm.usuario',
+              `%${busqueda}%`
+            )
+        })
+      })
+      .orderBy(
+        'vtm.fecha_movimiento',
+        'desc'
+      )
+      .paginate(
+        page,
+        limit
+      )
+
+    return response.ok(
+      movimientos
+    )
+  }
 }

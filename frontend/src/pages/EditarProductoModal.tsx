@@ -151,6 +151,12 @@ function EditarProductoModal({
         onClose();
 
         await cargarProductos();
+        
+         window.dispatchEvent(
+            new Event(
+                "actualizarNotificaciones"
+            )
+        );
 
         Swal.fire({
           icon: "success",

@@ -168,7 +168,7 @@ debugger;
 
             <div className="spinner"></div>
 
-            <p>Cargando productos...</p>
+            <p>Cargando clientes...</p>
 
             </div>
 

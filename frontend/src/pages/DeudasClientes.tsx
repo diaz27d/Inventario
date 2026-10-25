@@ -21,6 +21,7 @@ function DeudasClientes() {
   const [totalPaginas, setTotalPaginas] = useState(1);
   const [mostrarModalDeuda, setMostrarModalDeuda] = useState(false); 
   const [clienteSeleccionado, setClienteSeleccionado] = useState<any>(null);
+  const [licenciaVencida, setLicenciaVencida] = useState(false);
 
   const cargarDeudas = async (
     paginaActual = 1,
@@ -69,6 +70,36 @@ function DeudasClientes() {
 
     cargarDeudas();
 
+  }, []);
+
+  const validarLicencia = async () => {
+    try {
+
+      const response =
+        await fetch(
+          ENDPOINTS.VALIDARLICENCIA,
+          {
+            method: 'POST'
+          }
+        )
+
+      const data =
+        await response.json()
+
+      setLicenciaVencida(
+        data.disabled
+      )
+
+    } catch (error) {
+
+      console.error(error)
+
+    }
+
+  };
+
+  useEffect(() => {
+    validarLicencia()
   }, []);
 
   return (
@@ -325,6 +356,7 @@ function DeudasClientes() {
                   busqueda
               )
           }
+          desabilitar={licenciaVencida}
       />
 
     </Layout>

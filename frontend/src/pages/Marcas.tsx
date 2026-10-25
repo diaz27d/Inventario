@@ -27,6 +27,7 @@ function Marcas() {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [marcaSeleccionada, setMarcaSeleccionada] = useState<any>(null)
   const [mostrarEditar, setMostrarEditar] = useState(false);
+  const [licenciaVencida, setLicenciaVencida] = useState(false);
 
     useEffect(() => { 
       cargarMarcasExistentes()
@@ -58,6 +59,36 @@ function Marcas() {
                 setLoading(false);
             }
     };
+
+    const validarLicencia = async () => {
+    try {
+
+      const response =
+        await fetch(
+          ENDPOINTS.VALIDARLICENCIA,
+          {
+            method: 'POST'
+          }
+        )
+
+      const data =
+        await response.json()
+
+      setLicenciaVencida(
+        data.disabled
+      )
+
+    } catch (error) {
+
+      console.error(error)
+
+    }
+
+  };
+
+  useEffect(() => {
+    validarLicencia()
+  }, []);
 
   return (
     <Layout>
@@ -97,6 +128,7 @@ function Marcas() {
 
             <MarcaModal
                 abierto={mostrarModal}
+                desabilitar={licenciaVencida}
                 onClose={() =>
                   setMostrarModal(false)
                 }
@@ -224,6 +256,7 @@ function Marcas() {
           cargarMarcasExistentes={
               cargarMarcasExistentes
           }
+          desabilitar={licenciaVencida}
       />
 
       </div>

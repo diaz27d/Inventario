@@ -10,6 +10,7 @@ interface Props {
   categorias: any[];
   marcas: any[];
   cargarProductos: () => Promise<void>;
+  desabilitar: boolean;
 }
 
 function EditarProductoModal({
@@ -18,7 +19,8 @@ function EditarProductoModal({
   producto,
   categorias,
   marcas,
-  cargarProductos
+  cargarProductos,
+  desabilitar
 }: Props) {
 
   const [nombre, setNombre] = useState("");
@@ -151,7 +153,7 @@ function EditarProductoModal({
         onClose();
 
         await cargarProductos();
-        
+
          window.dispatchEvent(
             new Event(
                 "actualizarNotificaciones"
@@ -390,6 +392,7 @@ function EditarProductoModal({
           <button
             className="btn-guardar"
             onClick={actualizarProducto}
+            disabled={desabilitar}
           >
             Actualizar
           </button>

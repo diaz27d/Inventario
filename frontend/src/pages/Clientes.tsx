@@ -32,12 +32,13 @@ function Clientes() {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [mostrarEditar, setMostrarEditar] = useState(false);
   const [clienteSeleccionado, setClienteSeleccionado] = useState<any>(null);
+  const [licenciaVencida, setLicenciaVencida] = useState(false);
 
   const cargarClientes = async (
     paginaActual = 1,
     textoBusqueda = busqueda
   ) => {
-debugger;
+
     try {
 
       setLoading(true);
@@ -78,6 +79,36 @@ debugger;
 
     cargarClientes();
 
+  }, []);
+
+  const validarLicencia = async () => {
+    try {
+
+      const response =
+        await fetch(
+          ENDPOINTS.VALIDARLICENCIA,
+          {
+            method: 'POST'
+          }
+        )
+
+      const data =
+        await response.json()
+
+      setLicenciaVencida(
+        data.disabled
+      )
+
+    } catch (error) {
+
+      console.error(error)
+
+    }
+
+  };
+
+  useEffect(() => {
+    validarLicencia()
   }, []);
 
   return (
@@ -132,6 +163,7 @@ debugger;
                 cargarClientes={() =>
                     cargarClientes(pagina)
                 }
+                desabilitar={licenciaVencida}
             />
 
           </div>
@@ -247,6 +279,7 @@ debugger;
                 cliente={clienteSeleccionado}
                 onClose={() => setMostrarEditar(false)}
                 cargarClientes={() => cargarClientes(pagina)}
+                desabilitar={licenciaVencida}
                 />
 
             <div className="paginacion">

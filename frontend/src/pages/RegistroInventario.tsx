@@ -31,6 +31,7 @@ function RegistroInventario() {
   const [medioPago, setMedioPago] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [valorPagado, setValorPagado] = useState(0);
+  const [licenciaVencida, setLicenciaVencida] = useState(false);
   
 
   const totalMovimiento = detalle.reduce(
@@ -321,6 +322,36 @@ function RegistroInventario() {
       value: mediopago.id_medio_pago,
       label: mediopago.medio_pago
     }));
+
+  const validarLicencia = async () => {
+    try {
+
+      const response =
+        await fetch(
+          ENDPOINTS.VALIDARLICENCIA,
+          {
+            method: 'POST'
+          }
+        )
+
+      const data =
+        await response.json()
+
+      setLicenciaVencida(
+        data.disabled
+      )
+
+    } catch (error) {
+
+      console.error(error)
+
+    }
+
+  };
+
+  useEffect(() => {
+    validarLicencia()
+  }, []);
 
   return (
 
@@ -614,6 +645,7 @@ function RegistroInventario() {
             onClick={
               registrarMovimiento
             }
+            disabled={licenciaVencida}
           >
             <FaSave />
             Registrar Venta

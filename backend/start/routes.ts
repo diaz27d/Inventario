@@ -60,5 +60,6 @@ router
     router.post('HistorialMovimientos', [controllers.Inventarios, 'historialMovimientos'])
     router.post('Dasboard', [controllers.Dasboards, 'dashboard'])
     router.post('NotificacionesProducto', [controllers.Dasboards, 'notificacionesStock'])
+    router.post('ValidarLicencia', [controllers.Dasboards, 'validarLicencia'])
   })
   .prefix('/api/v1')

@@ -24,7 +24,7 @@ function Header() {
           await response.json();
 
         setNotificaciones(
-          data.productos || []
+          data.notificaciones || []
         );
 
       } catch (error) {
@@ -108,31 +108,42 @@ function Header() {
               <div className="panel-notificaciones" >
 
                   <h4>
-                      Stock Bajo
+                      Notificaciones
                   </h4>
                       {
                       notificaciones.length === 0
                       ?
-                      <p>
+                      <p className="sin-notificaciones">
                           No hay alertas
                       </p>
                       :
 
                       notificaciones.map(
-                          producto => (
+                          (
+                            notificacion,
+                            index
+                          ) => (
 
                           <div
                               key={
-                                producto.id_producto
+                                index
                               }
-                              className="item-notificacion"
+                              className={`item-notificacion ${notificacion.tipo}`}
                           >
+                               <div>
+                                  <strong>
+                                      {
+                                          notificacion.titulo
+                                      }
+                                  </strong>
 
-                              <span>{ producto.nombre_producto }</span>
+                                  <p>
+                                      {
+                                          notificacion.mensaje
+                                      }
+                                  </p>
 
-                              <strong>
-                                  Stock: {producto.cantidad_producto}
-                              </strong>
+                              </div>
                           </div>
                       ))
                   }

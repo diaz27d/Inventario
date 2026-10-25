@@ -9,6 +9,7 @@ interface Props {
   categorias: Categoria[];
   marcas: Marca[];
   cargarProductos: () => Promise<void>;
+  desabilitar: boolean;
 }
 
 interface Categoria {
@@ -21,7 +22,7 @@ interface Marca {
   nombre_marca: string;
 }
 
-function ProductoModal({ abierto, onClose, categorias, marcas, cargarProductos }: Props) {
+function ProductoModal({ abierto, onClose, categorias, marcas, cargarProductos, desabilitar }: Props) {
   if (!abierto) return null;
 
   const [nombre, setnombre] = useState("");
@@ -328,6 +329,7 @@ function ProductoModal({ abierto, onClose, categorias, marcas, cargarProductos }
 
           <button className="btn-guardar"
                   onClick={guardarProducto}
+                  disabled={desabilitar}
                   >
             💾 Guardar
           </button>

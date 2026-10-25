@@ -7,13 +7,15 @@ interface Props {
     marca: any;
     onClose: () => void;
     cargarMarcasExistentes: () => Promise<void>;
+    desabilitar: boolean;
 }
 
 function EditarMarcaModal({
     abierto,
     marca,
     onClose,
-    cargarMarcasExistentes
+    cargarMarcasExistentes,
+    desabilitar
 }: Props) {
 
     const [nombreMarca, setNombreMarca] =
@@ -180,6 +182,7 @@ function EditarMarcaModal({
                         onClick={
                             actualizarMarca
                         }
+                        disabled={desabilitar}
                     >
                         Guardar
                     </button>

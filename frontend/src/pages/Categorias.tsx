@@ -28,6 +28,7 @@ function Categorias() {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [mostrarEditar, setMostrarEditar] = useState(false);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<any>(null);
+  const [licenciaVencida, setLicenciaVencida] = useState(false);
   
   const cargarCategoriExistentes = async (
         paginaActual = 1,
@@ -60,6 +61,36 @@ function Categorias() {
   useEffect(() => {
     cargarCategoriExistentes()
   }, [])
+
+  const validarLicencia = async () => {
+    try {
+
+      const response =
+        await fetch(
+          ENDPOINTS.VALIDARLICENCIA,
+          {
+            method: 'POST'
+          }
+        )
+
+      const data =
+        await response.json()
+
+      setLicenciaVencida(
+        data.disabled
+      )
+
+    } catch (error) {
+
+      console.error(error)
+
+    }
+
+  };
+
+  useEffect(() => {
+    validarLicencia()
+  }, []);
 
 
   return (
@@ -105,6 +136,7 @@ function Categorias() {
                   cargarCategoriExistentes={
                     cargarCategoriExistentes
                   }
+                  desabilitar={licenciaVencida}
                 />
           </div>
 
@@ -226,6 +258,7 @@ function Categorias() {
             cargarCategoriExistentes={
                 cargarCategoriExistentes
             }
+            desabilitar={licenciaVencida}
         />
 
         </div>

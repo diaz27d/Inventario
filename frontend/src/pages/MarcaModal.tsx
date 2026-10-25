@@ -8,12 +8,14 @@ interface Props {
   abierto: boolean;
   onClose: () => void;
   cargarMarcasExistentes: () => Promise<void>;
+  desabilitar: boolean;
 }
 
 function MarcaModal({
   abierto,
   onClose,
-  cargarMarcasExistentes
+  cargarMarcasExistentes,
+  desabilitar,
 }: Props) {
 
   const [nombreMarca, setNombreMarca] = useState("");
@@ -180,6 +182,7 @@ function MarcaModal({
           <button
             className="btn-guardar"
             onClick={guardarMarca}
+            disabled={desabilitar}
           >
             Guardar
           </button>

@@ -111,6 +111,8 @@ export default class DasboardsController {
 
     async notificacionesStock({ response }: HttpContext) {
     
+    const notificaciones: any[] = []
+
     const cantidadAlerta = await db
         .from('parametros')
         .select(
@@ -120,27 +122,142 @@ export default class DasboardsController {
         'id_parametro', 1
         )
 
-    const productos = await db
-        .from('productos')
-        .select(
-        'id_producto',
-        'nombre_producto',
-        'cantidad_producto'
-        )
-        .where(
-        'cantidad_producto',
-        '<=',
-        Number(cantidadAlerta[0].valor)
-        )
-        .orderBy(
-        'cantidad_producto',
-        'asc'
-        )
+        // STOCK BAJO
+
+        const productos = await db
+            .from('productos')
+            .select(
+            'id_producto',
+            'nombre_producto',
+            'cantidad_producto'
+            )
+            .where(
+            'cantidad_producto',
+            '<=',
+            Number(cantidadAlerta[0].valor)
+            )
+            .orderBy(
+            'cantidad_producto',
+            'asc'
+            )
+
+        productos.forEach((producto) => {
+
+            notificaciones.push({
+
+            tipo: 'stock',
+
+            titulo: 'Stock Bajo',
+
+            mensaje: `${producto.nombre_producto} tiene ${producto.cantidad_producto} unidades disponibles`
+
+            })
+
+        })
+
+         // LICENCIA
+
+        const licencia = await db
+            .from('parametros')
+            .select('valor')
+            .where(
+            'id_parametro',
+            3
+            )
+            .first()
+
+        const cantidadNumeroDias = await db
+            .from('parametros')
+            .select(
+            'valor'
+            )
+            .where(
+            'id_parametro', 4
+            )
+
+        if (licencia?.valor) {
+
+            const hoy = new Date()
+
+            const fechaLicencia = new Date(licencia.valor)
+
+            const diferenciaDias =
+            Math.ceil(
+                (
+                fechaLicencia.getTime() -
+                hoy.getTime()
+                ) /
+                (1000 * 60 * 60 * 24)
+            )
+
+            if ( diferenciaDias <= Number(cantidadNumeroDias[0].valor) && diferenciaDias >= 0) {
+                
+                if(diferenciaDias > 0){
+                    notificaciones.push({
+                        tipo: 'licencia',
+                        titulo: 'Licencia próxima a vencer',
+                        mensaje:
+                        `La licencia vence en ${diferenciaDias} día(s) comunicarse con el administrador.`,
+                        fecha:
+                        licencia.valor
+
+                    })
+                }else{
+                    notificaciones.push({
+                        tipo: 'licencia',
+                        titulo: 'Licencia vencida',
+                        mensaje:
+                        `La licencia vencio el ${licencia?.valor}  comunicarse con el administrador.`,
+                        fecha:
+                        licencia.valor
+
+                    })
+                }
+            
+
+            }
+
+        }
 
     return response.ok({
-        total: productos.length,
-        productos
-    })
+            total:
+            notificaciones.length,
+
+            notificaciones
+        })
+
+    }
+
+    async validarLicencia({ response }: HttpContext) {
+
+        const licencia = await db
+            .from('parametros')
+            .select('valor')
+            .where(
+            'id_parametro',
+            3
+            )
+            .first()
+
+
+        const hoy = new Date()
+
+        const fechaLicencia = new Date(licencia.valor)
+
+        const vencida = fechaLicencia <= hoy
+
+        return response.ok({
+
+            disabled: vencida,
+
+            fechaLicencia:
+            licencia.valor,
+
+            mensaje: vencida
+            ? 'La licencia ha vencido'
+            : 'Licencia activa'
+
+        })
 
     }
 }

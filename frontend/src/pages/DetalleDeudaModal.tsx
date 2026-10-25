@@ -11,13 +11,15 @@ interface Props {
     cliente: any;
     onClose: () => void;
     recargarDeudas: () => Promise<void>;
+    desabilitar: boolean;
 }
 
 function DetalleDeudaModal({
     abierto,
     cliente,
     onClose,
-    recargarDeudas
+    recargarDeudas,
+    desabilitar
 }: Props) {
 
     const [ventas, setVentas] = useState<any[]>([]);
@@ -450,6 +452,7 @@ function DetalleDeudaModal({
                         onClick={
                             registrarAbono
                         }
+                        disabled={desabilitar}
                     >
                         Registrar Abono
                     </button>

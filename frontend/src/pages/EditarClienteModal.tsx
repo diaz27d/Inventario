@@ -9,13 +9,15 @@ interface Props {
   cliente: any;
   onClose: () => void;
   cargarClientes: () => Promise<void>;
+  desabilitar: boolean;
 }
 
 function EditarClienteModal({
   abierto,
   cliente,
   onClose,
-  cargarClientes
+  cargarClientes,
+  desabilitar
 }: Props) {
 
   const [nombre, setNombre] = useState("");
@@ -389,6 +391,7 @@ function EditarClienteModal({
             onClick={
               actualizarCliente
             }
+            disabled={desabilitar}
           >
             Guardar Cambios
           </button>

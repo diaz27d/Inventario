@@ -8,12 +8,14 @@ interface Props {
   abierto: boolean;
   onClose: () => void;
   cargarClientes: () => Promise<void>;
+  desabilitar: boolean;
 }
 
 function ClienteModal({
   abierto,
   onClose,
   cargarClientes,
+  desabilitar
 }: Props) {
 
   const [nombre, setNombre] = useState("");
@@ -309,6 +311,7 @@ function ClienteModal({
           <button
             className="btn-guardar"
             onClick={guardarCliente}
+            disabled={desabilitar}
           >
             Guardar
           </button>

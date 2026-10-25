@@ -50,6 +50,7 @@ function Productos() {
   const [loading, setLoading] = useState(true);
   const [pagina, setPagina] = useState(1);
   const [totalPaginas, setTotalPaginas] = useState(1);
+  const [licenciaVencida, setLicenciaVencida] = useState(false);
   
 
     const cargarProductos = async (
@@ -126,6 +127,36 @@ function Productos() {
         cargarCategoriExistentes()
     }, [])
 
+    const validarLicencia = async () => {
+    try {
+
+      const response =
+        await fetch(
+          ENDPOINTS.VALIDARLICENCIA,
+          {
+            method: 'POST'
+          }
+        )
+
+      const data =
+        await response.json()
+
+      setLicenciaVencida(
+        data.disabled
+      )
+
+    } catch (error) {
+
+      console.error(error)
+
+    }
+
+  };
+
+  useEffect(() => {
+    validarLicencia()
+  }, []);
+
 
 
   return (
@@ -162,6 +193,7 @@ function Productos() {
                 categorias={CategoriExi}
                 marcas={MarcaExis}
                 cargarProductos={cargarProductos}
+                desabilitar={licenciaVencida}
             />
         </div>
 
@@ -269,6 +301,7 @@ function Productos() {
                     categorias={CategoriExi}
                     marcas={MarcaExis}
                     cargarProductos={cargarProductos}
+                    desabilitar={licenciaVencida}
                 />
 
                 <div className="paginacion">

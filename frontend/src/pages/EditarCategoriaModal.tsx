@@ -7,13 +7,15 @@ interface Props {
     categoria: any;
     onClose: () => void;
     cargarCategoriExistentes: () => Promise<void>;
+    desabilitar: boolean;
 }
 
 function EditarCategoriaModal({
     abierto,
     categoria,
     onClose,
-    cargarCategoriExistentes
+    cargarCategoriExistentes,
+    desabilitar
 }: Props) {
 
     const [nombreCategoria,
@@ -189,6 +191,7 @@ function EditarCategoriaModal({
                         onClick={
                             actualizarCategoria
                         }
+                        disabled={desabilitar}
                     >
                         Guardar
                     </button>

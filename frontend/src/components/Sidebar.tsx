@@ -11,9 +11,7 @@ import {
   FaHistory,
   FaUsers,
   FaUserTie,
-  FaMoneyBillWave,
-  FaChevronDown,
-  FaChevronUp
+  FaMoneyBillWave
 } from "react-icons/fa";
 
 import {  } from "react-router-dom";

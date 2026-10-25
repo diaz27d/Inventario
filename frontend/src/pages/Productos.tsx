@@ -3,7 +3,6 @@ import {
   FaPlus,
   FaSearch,
   FaEdit,
-  FaEye, 
   FaSyncAlt 
 } from "react-icons/fa";
 

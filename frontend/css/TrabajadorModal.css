@@ -1,0 +1,256 @@
+.modal-trabajador {
+
+    width: 700px;
+    max-width: 95%;
+
+    background: white;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow:
+      0 20px 50px rgba(0,0,0,.15);
+}
+
+.modal-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 25px 30px;
+
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-header h2 {
+
+    margin: 0;
+
+    color: #1e293b;
+}
+
+.btn-close {
+
+    background: none;
+
+    border: none;
+
+    font-size: 24px;
+
+    cursor: pointer;
+}
+
+.modal-body {
+
+    padding: 30px;
+}
+
+.form-row {
+
+    display: flex;
+
+    gap: 20px;
+}
+
+.form-row .form-group {
+
+    flex: 1;
+}
+
+.form-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    margin-bottom: 20px;
+}
+
+.form-group label {
+
+    margin-bottom: 8px;
+
+    font-weight: 600;
+
+    color: #374151;
+}
+
+.form-group input,
+.form-group textarea {
+
+    padding: 12px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: .2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+
+    border-color: #2563eb;
+
+    box-shadow:
+      0 0 0 3px rgba(37,99,235,.10);
+}
+
+.error-text {
+
+    color: #dc2626;
+
+    font-size: 12px;
+
+    margin-top: 6px;
+}
+
+.modal-footer {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    padding: 20px 30px;
+
+    border-top: 1px solid #e2e8f0;
+}
+
+.btn-cancelar {
+
+    background: #64748b;
+
+    color: white;
+
+    border: none;
+
+    padding: 12px 20px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.btn-guardar {
+
+    background: #2563eb;
+
+    color: white;
+
+    border: none;
+
+    padding: 12px 20px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.row {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 25px;
+}
+
+.estado-container {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.estado-label {
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    color: #6b7280;
+}
+
+.switch {
+
+    position: relative;
+
+    display: inline-block;
+
+    width: 60px;
+
+    height: 34px;
+}
+
+.switch input {
+
+    opacity: 0;
+
+    width: 0;
+
+    height: 0;
+}
+
+.slider {
+
+    position: absolute;
+
+    cursor: pointer;
+
+    top: 0;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    background-color: #dc2626;
+
+    transition: .4s;
+
+    border-radius: 34px;
+}
+
+.slider:before {
+
+    position: absolute;
+
+    content: "";
+
+    height: 26px;
+
+    width: 26px;
+
+    left: 4px;
+
+    bottom: 4px;
+
+    background-color: white;
+
+    transition: .4s;
+
+    border-radius: 50%;
+}
+
+.switch input:checked + .slider {
+
+    background-color: #16a34a;
+}
+
+.switch input:checked + .slider:before {
+
+    transform: translateX(26px);
+}

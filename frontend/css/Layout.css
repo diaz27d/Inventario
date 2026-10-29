@@ -146,7 +146,11 @@
 
     right: 0;
 
-    width: 320px;
+    width: 350px;
+
+    max-height: 450px;
+
+    overflow-y: auto;
 
     background: white;
 
@@ -160,10 +164,19 @@
 
 .panel-notificaciones h4 {
 
+    position: sticky;
+
+    top: 0;
+
+    background: white;
+
+    z-index: 1;
+
     padding: 15px;
 
-    border-bottom:
-      1px solid #e2e8f0;
+    margin: 0;
+
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .item-notificacion {

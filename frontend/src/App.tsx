@@ -7,6 +7,7 @@ import Marcas from './pages/Marcas'
 import RegistroInventario from './pages/RegistroInventario'
 import HistorialMovimientos from './pages/HistorialMovimientos'
 import ConsolidadoReportes from './pages/ConsolidadoReportes'
+import Trabajadores from './pages/Trabajadores'
 import Clientes from './pages/Clientes'
 import DeudasClientes from './pages/DeudasClientes'
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/registro-inventario" element={<RegistroInventario />}/>
         <Route path="/historial-movimientos" element={<HistorialMovimientos />}/>
         <Route path="/consolidado-reportes" element={<ConsolidadoReportes />}/>
+        <Route path="/trabajadores" element={<Trabajadores />}/>
         <Route path="/clientes" element={<Clientes />}/>
         <Route path="/deudas-clientes" element={<DeudasClientes />}/>
       </Routes>

@@ -32,6 +32,9 @@ function RegistroInventario() {
   const [loading, setLoading] = useState(false);
   const [valorPagado, setValorPagado] = useState(0);
   const [licenciaVencida, setLicenciaVencida] = useState(false);
+  const [trabajadores, setTrabajadores] = useState<any[]>([]);
+  const [trabajadorSeleccionado, setTrabajadorSeleccionado] = useState<OpcionSelect | null>(null);
+  const [porcentajeComision, setPorcentajeComision] = useState(0);
   
 
   const totalMovimiento = detalle.reduce(
@@ -45,6 +48,8 @@ function RegistroInventario() {
   );
 
   const saldoPendiente = totalMovimiento - valorPagado
+
+  const valorComision = ( totalMovimiento * porcentajeComision ) / 100;
 
   useEffect(() => {
     const cargarClientes = async () => {
@@ -132,6 +137,38 @@ function RegistroInventario() {
 
   }, []);
 
+  useEffect(() => {
+
+    const cargarTrabajadores =
+        async () => {
+
+        try {
+
+            const response =
+                await fetch(
+                    ENDPOINTS.TRABAJADORESCOMBOS,
+                    {
+                        method: "POST"
+                    }
+                );
+
+            const data =
+                await response.json();
+
+            setTrabajadores(
+                data ?? []
+            );
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    cargarTrabajadores();
+
+  }, []);
+
+
   const agregarProducto = () => {
 
     if (!productoSeleccionado) {
@@ -160,7 +197,10 @@ function RegistroInventario() {
         precio_producto: 
           productoSeleccionado.precio,
 
-        cantidad: 1
+        cantidad: 1,
+
+        precio_variable:
+          productoSeleccionado.precio_variable
       }
     ]);
   };
@@ -237,6 +277,33 @@ function RegistroInventario() {
 
       return;
     }
+
+    if ( trabajadorSeleccionado == null ) {
+        Swal.fire({
+            icon: 'warning',
+            title:
+                'Error al crear registro',
+            text:
+                'Debe seleccionar un trabajador',
+            confirmButtonColor:
+                '#f59e0b'
+        });
+        return;
+    }
+
+    if( porcentajeComision == 0 ){
+      Swal.fire({
+            icon: 'warning',
+            title:
+                'Error al crear registro',
+            text:
+                'Debe indicar el porcentaje para el trabajador',
+            confirmButtonColor:
+                '#f59e0b'
+        });
+        return;
+    }
+
     
 
     try {
@@ -256,7 +323,10 @@ function RegistroInventario() {
             usuario: user.email,
             id_cliente: clienteSeleccionado.value,
             valor_pagado: valorPagado,
-            cuenta_por_cobrar: saldoPendiente
+            cuenta_por_cobrar: saldoPendiente,
+            id_trabajador: trabajadorSeleccionado.value,
+            porcentaje_trabajador: porcentajeComision,
+            valorComision: valorComision
           })
         }
       );
@@ -269,7 +339,9 @@ function RegistroInventario() {
         setProductoSeleccionado(null);
         setClienteSeleccionado(null);
         setMedioPagoSeleccionado(null);
-        setValorPagado(0);
+        setValorPagado(0); 
+        setTrabajadorSeleccionado(null);
+        setPorcentajeComision(0);
 
         window.dispatchEvent(
             new Event(
@@ -308,7 +380,8 @@ function RegistroInventario() {
     productos.map((producto) => ({
       value: producto.id_producto,
       label: producto.nombre_producto,
-      precio: producto.precio_producto
+      precio: producto.precio_producto,
+      precio_variable: producto.precio_variable
     }));
 
   const opcionesClientes =
@@ -321,6 +394,12 @@ function RegistroInventario() {
     medioPago.map((mediopago) => ({
       value: mediopago.id_medio_pago,
       label: mediopago.medio_pago
+    }));
+
+  const opcionesTrabajadores =
+    trabajadores.map((trabajador) => ({
+        value: trabajador.id_trabajador,
+        label: trabajador.nombre_trabajador
     }));
 
   const validarLicencia = async () => {
@@ -463,11 +542,51 @@ function RegistroInventario() {
                         />
 
                       </td>
-
+                      
                       <td>
-                        {Number(
-                          item.precio_producto
-                        ).toLocaleString('es-CO')}
+
+                        {
+                          item.precio_variable == 1
+                          ? (
+
+                            <input
+                              className="input-precio-variable"
+                              type="text"
+                              value={
+                                Number(
+                                  item.precio_producto || 0
+                                ).toLocaleString("es-CO")
+                              }
+                              onChange={(e) => {
+
+                                const valor =
+                                  e.target.value.replace(/\D/g, "");
+
+                                const copia = [...detalle];
+
+                                copia[index].precio_producto =
+                                  valor
+                                    ? Number(valor)
+                                    : 0;
+
+                                setDetalle(copia);
+
+                              }}
+                            />
+
+                          )
+                          : (
+
+                            <>
+                              $
+                              {Number(
+                                item.precio_producto
+                              ).toLocaleString("es-CO")}
+                            </>
+
+                          )
+                        }
+
                       </td>
 
                       <td>
@@ -577,7 +696,7 @@ function RegistroInventario() {
               <Select
                   className="venta-select"
                   classNamePrefix="venta-select"
-                  placeholder="Seleccionar medio de pago..."
+                  placeholder="Seleccione pago..."
                   options={opcionesMediosPago}
                   isSearchable
                   value={medioPagoSeleccionado}
@@ -587,56 +706,128 @@ function RegistroInventario() {
               />
 
           </div>
+          
+          <div className="form-group">
 
+            <label>
+                Trabajador
+            </label>
+
+            <Select
+                className="venta-select"
+                classNamePrefix="venta-select"
+                placeholder="Seleccionar trabajador..."
+                options={opcionesTrabajadores}
+                isSearchable
+                value={trabajadorSeleccionado}
+                onChange={(opcion) =>
+                    setTrabajadorSeleccionado(opcion)
+                }
+            />
+
+          </div>
+        </div>
+
+        <div className="row">      
           <div className="valores-venta">
 
-            <div className="form-group">
+          <div className="form-group">
 
-                <label>
-                    Valor Pagado
-                </label>
+              <label>
+                  Valor Pagado
+              </label>
 
-                <input
-                    type="text"
-                    className="input-cuenta-cobrar"
-                    value={
-                        valorPagado > 0
-                            ? valorPagado.toLocaleString("es-CO")
-                            : ""
-                    }
-                    onChange={(e) => {
+              <input
+                  type="text"
+                  className="input-cuenta-cobrar"
+                  value={
+                      valorPagado > 0
+                          ? valorPagado.toLocaleString("es-CO")
+                          : ""
+                  }
+                  onChange={(e) => {
 
-                        const valor =
-                            e.target.value.replace(/\D/g, "");
+                      const valor =
+                          e.target.value.replace(/\D/g, "");
 
-                        setValorPagado(
-                            valor
-                                ? Number(valor)
-                                : 0
-                        );
+                      setValorPagado(
+                          valor
+                              ? Number(valor)
+                              : 0
+                      );
 
-                    }}
-                    placeholder="0"
-                />
+                  }}
+                  placeholder="0"
+              />
 
-            </div>
+          </div>
 
-            <div className="form-group">
+          <div className="form-group">
 
-                <label>
-                    Cuenta por Cobrar
-                </label>
+              <label>
+                  Cuenta por Cobrar
+              </label>
 
-                <input
-                    type="text"
-                    className="input-cuenta-cobrar"
-                    value={saldoPendiente.toLocaleString("es-CO")}
-                    readOnly
-                />
+              <input
+                  type="text"
+                  className="input-cuenta-cobrar"
+                  value={
+                      saldoPendiente.toLocaleString("es-CO")
+                  }
+                  readOnly
+              />
 
-            </div>
+          </div>
 
-        </div>
+          <div className="form-group">
+
+              <label>
+                  % Comisión
+              </label>
+
+              <input
+                  type="text"
+                  className="input-cuenta-cobrar"
+                  value={ porcentajeComision > 0
+                          ? porcentajeComision.toLocaleString("es-CO")
+                          : ""}
+                  onChange={(e) => {
+
+                      const valor =
+                          e.target.value.replace(/\D/g, "");
+
+                      setPorcentajeComision(
+                          valor
+                              ? Number(valor)
+                              : 0
+                      );
+
+                  }}
+                  placeholder="0"
+              />
+
+          </div>
+
+          <div className="form-group">
+
+              <label>
+                  Valor Comisión
+              </label>
+
+              <input
+                  type="text"
+                  className="input-cuenta-cobrar"
+                  value={
+                      valorComision.toLocaleString(
+                          "es-CO"
+                      )
+                  }
+                  readOnly
+              />
+
+          </div>
+
+      </div>
 
       </div>
 

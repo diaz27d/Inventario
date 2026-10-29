@@ -32,6 +32,7 @@ function EditarProductoModal({
   const [descripcion, setDescripcion] = useState("");
   const [IdProducto, setIdProducto] = useState(0);
   const [estado, setEstado] = useState(true);
+  const [precioVariable, setprecioVariable] = useState(true);
 
   const [errores, setErrores] = useState({
     precio: "",
@@ -70,6 +71,11 @@ function EditarProductoModal({
     setEstado(
       producto.estado_producto === 1 ||
       producto.estado_producto === true
+    );
+
+    setprecioVariable(
+      producto.precio_variable === 1 ||
+      producto.precio_variable === true
     );
 
   }, [producto]);
@@ -141,7 +147,8 @@ function EditarProductoModal({
             precio_adquirido_producto:precioAdquirido,
             cantidad_producto: stock,
             descripcion_producto: descripcion,
-            estado_producto: estado ? 1 : 0 
+            estado_producto: estado ? 1 : 0 ,
+            precio_variable: precioVariable ? 1 : 0
           })
         }
       );
@@ -374,6 +381,29 @@ function EditarProductoModal({
               </span>
 
           </div>
+
+          <div className="estado-container">
+
+              <label className="switch">
+                  <input
+                      type="checkbox"
+                      checked={precioVariable}
+                      onChange={(e) =>
+                          setprecioVariable(e.target.checked)
+                      }
+                  />
+
+                  <span className="slider"></span>
+              </label>
+
+              <span className="estado-label">
+                  {precioVariable ? "Precio Variable" : "Precio Fijo"}
+              </span>
+
+          </div>
+          
+
+          
 
 
           </div>

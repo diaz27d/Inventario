@@ -12,7 +12,10 @@ export default class InventariosController {
         totalMovimiento,
         id_cliente,
         valor_pagado,
-        cuenta_por_cobrar
+        cuenta_por_cobrar,
+        id_trabajador,
+        porcentaje_trabajador,
+        valorComision
         } = request.only([
         'observacion',
         'productos',
@@ -20,7 +23,10 @@ export default class InventariosController {
         'totalMovimiento',
         'id_cliente',
         'valor_pagado',
-        'cuenta_por_cobrar'
+        'cuenta_por_cobrar',
+        'id_trabajador',
+        'porcentaje_trabajador',
+        'valorComision'
         ])
 
     if (!productos || productos.length === 0) {
@@ -58,8 +64,21 @@ export default class InventariosController {
                 fecha_movimiento: fecha,
                 id_cliente: id_cliente,
                 valor_pagado: valor_pagado,
-                cuenta_por_cobrar: cuenta_por_cobrar
+                cuenta_por_cobrar: cuenta_por_cobrar,
+                id_trabajador: id_trabajador,
+                porcentaje_trabajador: porcentaje_trabajador
         })
+
+        await trx
+          .from('trabajadores')
+          .where(
+          'id_trabajador',
+          id_trabajador
+          )
+          .increment(
+          'valor_pagar_trabajador',
+          valorComision
+          )
 
       for (const producto of productos) {
 

@@ -215,6 +215,16 @@ export default class DasboardsController {
                 }
             
 
+            }else{
+                notificaciones.push({
+                        tipo: 'licencia',
+                        titulo: 'Licencia vencida',
+                        mensaje:
+                        `La licencia vencio el ${licencia?.valor}  comunicarse con el administrador.`,
+                        fecha:
+                        licencia.valor
+
+                })
             }
 
         }

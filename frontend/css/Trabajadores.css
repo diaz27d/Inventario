@@ -1,0 +1,141 @@
+.trabajadores-page {
+    padding: 30px;
+    background: #f5f7fb;
+    min-height: 100vh;
+}
+
+.trabajadores-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.trabajadores-header h1 {
+    color: #1e293b;
+}
+
+.trabajadores-header p {
+    color: #64748b;
+}
+
+.acciones-header {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-refresh {
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 10px;
+    background: #0ea5e9;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-nuevo {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-weight: 600;
+}
+
+.buscador {
+    background: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.buscador input {
+    border: none;
+    width: 100%;
+    outline: none;
+    font-size: 15px;
+}
+
+.tabla-clientes {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow:
+        0 2px 15px rgba(0,0,0,.08);
+}
+
+.tabla-clientes table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-clientes th {
+    text-align: left;
+    padding: 15px;
+    background: #f8fafc;
+}
+
+.tabla-clientes td {
+    padding: 15px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.estado-activo {
+    background: #dcfce7;
+    color: #166534;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.estado-inactivo {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.acciones {
+    text-align: center;
+}
+
+.btn-editar {
+    border: none;
+    background: #dbeafe;
+    color: #2563eb;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.paginacion {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.paginacion button {
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.paginacion button:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+}

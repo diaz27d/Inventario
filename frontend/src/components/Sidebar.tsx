@@ -173,6 +173,11 @@ function Sidebar() {
           </ul>
         )}
 
+        <li>
+          <Link to="/trabajadores">
+            <FaChartBar /> Gestión de trabajadores
+          </Link>
+        </li>
         
         <li>
           <Link to="/consolidado-reportes">

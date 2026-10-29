@@ -32,6 +32,10 @@ export const ENDPOINTS = {
   DASBOARD: `${API_URL}/Dasboard`,  
   NOTIFICACIONESSTOCK: `${API_URL}/NotificacionesProducto`, 
   VALIDARLICENCIA: `${API_URL}/ValidarLicencia`, 
+  TRABAJADORES: `${API_URL}/ConsultarTrabajadores`,
+  GUARDARTRABAJADOR: `${API_URL}/GuardarTrabajador`,
+  ACTUALIZARTRABAJADOR: `${API_URL}/ActualizarTrabajador`,
+  TRABAJADORESCOMBOS: `${API_URL}/TrabajadoresCombos`,
 }
 
 export default API_URL

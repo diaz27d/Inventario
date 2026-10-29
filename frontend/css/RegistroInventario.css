@@ -234,7 +234,7 @@
 
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 
     gap: 20px;
 
@@ -293,7 +293,7 @@
 
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 
     gap: 20px;
 
@@ -322,4 +322,32 @@
     box-shadow:
         0 0 0 3px
         rgba(37,99,235,.15);
+}
+
+.input-precio-variable {
+
+    width: 120px;
+
+    padding: 8px 10px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    text-align: right;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    outline: none;
+}
+
+.input-precio-variable:focus {
+
+    border-color: #2563eb;
+
+    box-shadow:
+      0 0 0 3px
+      rgba(37,99,235,.15);
 }

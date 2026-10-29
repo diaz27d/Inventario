@@ -11,7 +11,8 @@ import {
   FaHistory,
   FaUsers,
   FaUserTie,
-  FaMoneyBillWave
+  FaMoneyBillWave,
+  FaWrench
 } from "react-icons/fa";
 
 import {  } from "react-router-dom";
@@ -108,6 +109,12 @@ function Sidebar() {
           </Link>
         </li>
 
+        <li>
+          <Link to="/trabajadores">
+            <FaWrench  /> Trabajadores
+          </Link>
+        </li>
+
 
         <li
           onClick={() => setInventarioAbierto(!inventarioAbierto)}
@@ -172,12 +179,6 @@ function Sidebar() {
 
           </ul>
         )}
-
-        <li>
-          <Link to="/trabajadores">
-            <FaChartBar /> Gestión de trabajadores
-          </Link>
-        </li>
         
         <li>
           <Link to="/consolidado-reportes">

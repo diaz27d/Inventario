@@ -4,7 +4,6 @@ import { ENDPOINTS } from "../config/api";
 import Swal from "sweetalert2";
 import {
   FaFileExcel,
-  FaFilePdf
 } from "react-icons/fa";
 
 import "../../css/ConsolidadoReportes.css";

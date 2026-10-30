@@ -304,6 +304,19 @@ function RegistroInventario() {
         return;
     }
 
+    if(medioPagoSeleccionado == null ){
+      Swal.fire({
+            icon: 'warning',
+            title:
+                'Error al crear registro',
+            text:
+                'Debe seleccionar un medio de pago',
+            confirmButtonColor:
+                '#f59e0b'
+        });
+        return;
+    }
+
     
 
     try {
@@ -326,7 +339,8 @@ function RegistroInventario() {
             cuenta_por_cobrar: saldoPendiente,
             id_trabajador: trabajadorSeleccionado.value,
             porcentaje_trabajador: porcentajeComision,
-            valorComision: valorComision
+            valorComision: valorComision,
+            medioPago: medioPagoSeleccionado.value
           })
         }
       );

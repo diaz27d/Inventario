@@ -36,6 +36,8 @@ export const ENDPOINTS = {
   GUARDARTRABAJADOR: `${API_URL}/GuardarTrabajador`,
   ACTUALIZARTRABAJADOR: `${API_URL}/ActualizarTrabajador`,
   TRABAJADORESCOMBOS: `${API_URL}/TrabajadoresCombos`,
+  CONSOLIDADOREPORTES: `${API_URL}/ConsolidadoReportes`,
+  EXPORTAREXCEL: `${API_URL}/ExportarExcel`,
 }
 
 export default API_URL

@@ -74,6 +74,7 @@ function TrabajadorModal({
           nuevosErrores
         ).length > 0
       ) {
+        console.log(errores);
         return;
       }
 

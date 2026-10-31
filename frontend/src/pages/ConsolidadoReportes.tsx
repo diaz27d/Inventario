@@ -25,6 +25,16 @@ function ConsolidadoReportes() {
     return;
   }
 
+  Swal.fire({
+      title: "Consultando Información",
+      text: "Por favor espere...",
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      didOpen: () => {
+          Swal.showLoading();
+      }
+  });
+
   const response =
     await fetch(
       ENDPOINTS.CONSOLIDADOREPORTES,
@@ -53,10 +63,21 @@ function ConsolidadoReportes() {
     await response.json();
 
   setReporte(data);
+  Swal.close();
 
 };
 
 const exportarExcel = async () => {
+
+  Swal.fire({
+      title: "Generando reporte",
+      text: "Por favor espere...",
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      didOpen: () => {
+          Swal.showLoading();
+      }
+  });
 
   const response =
     await fetch(
@@ -88,6 +109,7 @@ const exportarExcel = async () => {
   a.href = url
   a.download = `Reporte_${fechaInicio}_${fechaFin}.xlsx`
   a.click()
+  Swal.close();
 }
 
   return (

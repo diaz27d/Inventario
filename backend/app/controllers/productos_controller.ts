@@ -52,7 +52,8 @@ export default class ProductosController {
             'p.cantidad_producto',
             'p.descripcion_producto',
             'p.estado_producto',
-            'p.precio_variable'
+            'p.precio_variable',
+            'p.es_mano_obra'
         )
         .orderBy('p.cantidad_producto', 'asc')
         .paginate(page, limit);
@@ -235,7 +236,10 @@ export default class ProductosController {
                 datos.estado_producto,
             
             precio_variable: 
-                datos.precio_variable
+                datos.precio_variable,
+
+            es_mano_obra: 
+                datos.es_mano_obra
             })
 
             return response.ok({
@@ -259,7 +263,8 @@ export default class ProductosController {
             'p.cantidad_producto',
             'p.descripcion_producto',
             'p.estado_producto',
-            'p.precio_variable'
+            'p.precio_variable',
+            'P.es_mano_obra'
         )
         .orderBy('p.id_producto', 'desc')
         //await new Promise((resolve) => setTimeout(resolve, 5000));

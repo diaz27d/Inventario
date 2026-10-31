@@ -204,7 +204,7 @@ export default class DasboardsController {
                     })
                 }else{
                     notificaciones.push({
-                        tipo: 'licencia',
+                        tipo: 'licencia-vencida',
                         titulo: 'Licencia vencida',
                         mensaje:
                         `La licencia vencio el ${licencia?.valor}  comunicarse con el administrador.`,
@@ -217,7 +217,7 @@ export default class DasboardsController {
 
             }else{
                 notificaciones.push({
-                        tipo: 'licencia',
+                        tipo: 'licencia-vencida',
                         titulo: 'Licencia vencida',
                         mensaje:
                         `La licencia vencio el ${licencia?.valor}  comunicarse con el administrador.`,
@@ -228,6 +228,75 @@ export default class DasboardsController {
             }
 
         }
+
+        // FACTURAS PROVEEDOR PRÓXIMAS A VENCER
+
+        const cantidadNumeroDiasFacturas = await db
+            .from('parametros')
+            .select(
+            'valor'
+            )
+            .where(
+            'id_parametro', 5
+            )
+
+        const facturasProveedor = await db
+            .from('facturas_proveedor as fp')
+            .select(
+                'fp.numero_factura',
+                'fp.fecha_vecimiento',
+                'fp.total_pendiente',
+                'fp.nombre_proveedor'
+            )
+            .where(
+                'fp.total_pendiente',
+                '>',
+                0
+            )
+
+        facturasProveedor.forEach((factura) => {
+
+            const hoy = new Date()
+
+            const fechaVencimiento =
+                new Date(
+                    factura.fecha_vecimiento
+                )
+
+            const diferenciaDias =
+                Math.ceil(
+                    (
+                        fechaVencimiento.getTime() -
+                        hoy.getTime()
+                    ) /
+                    (1000 * 60 * 60 * 24)
+                )
+
+            if (diferenciaDias >= 0 && diferenciaDias <= Number(cantidadNumeroDias[0].valor)) {
+
+                notificaciones.push({
+                    tipo: 'factura',
+                    titulo:
+                        'Factura por vencer',
+                    mensaje:
+                        `La factura ${factura.numero_factura} del proveedor ${factura.nombre_proveedor} vence en ${diferenciaDias} día(s). Saldo pendiente: $${Number(factura.total_pendiente).toLocaleString('es-CO')}`
+                })
+
+            }
+
+            if (diferenciaDias < 0) {
+
+                notificaciones.push({
+                    tipo: 'factura-vencida',
+                    titulo:
+                        'Factura vencida',
+                    mensaje:
+                        `La factura ${factura.numero_factura} del proveedor ${factura.nombre_proveedor} se encuentra vencida. Saldo pendiente: $${Number(factura.total_pendiente).toLocaleString('es-CO')}`
+                })
+
+            }
+
+        })
 
     return response.ok({
             total:

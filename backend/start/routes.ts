@@ -67,5 +67,8 @@ router
     router.post('TrabajadoresCombos', [controllers.Trabajadores, 'trabajadoresCombos'])
     router.post('ConsolidadoReportes', [controllers.Inventarios, 'consolidadoReportes'])
     router.post('ExportarExcel', [controllers.Inventarios, 'exportarExcel'])
+    router.post('FacturasExistentes', [controllers.Facturas, 'facturasProveedorExistentes'])
+    router.put('GuardarFacturas', [controllers.Facturas, 'guardarFacturaProveedor'])
+    router.put('ActualizarFacturas', [controllers.Facturas, 'actualizarFacturaProveedor'])
   })
   .prefix('/api/v1')

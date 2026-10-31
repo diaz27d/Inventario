@@ -34,7 +34,7 @@ function RegistroInventario() {
   const [licenciaVencida, setLicenciaVencida] = useState(false);
   const [trabajadores, setTrabajadores] = useState<any[]>([]);
   const [trabajadorSeleccionado, setTrabajadorSeleccionado] = useState<OpcionSelect | null>(null);
-  const [porcentajeComision, setPorcentajeComision] = useState(0);
+  const [porcentajeComision, setPorcentajeComision] = useState(50);
   
 
   const totalMovimiento = detalle.reduce(
@@ -47,9 +47,22 @@ function RegistroInventario() {
     0
   );
 
+  const totalManoObra = detalle.reduce(
+    (total, item) =>
+
+        Number(item.es_mano_obra) === 1
+        ? total +
+          (
+            Number(item.precio_producto) *
+            Number(item.cantidad)
+          )
+        : total,
+    0
+  );
+
   const saldoPendiente = totalMovimiento - valorPagado
 
-  const valorComision = ( totalMovimiento * porcentajeComision ) / 100;
+  const valorComision = ( totalManoObra * (porcentajeComision == 0 ? 50 : porcentajeComision) ) / 100;
 
   useEffect(() => {
     const cargarClientes = async () => {
@@ -200,7 +213,10 @@ function RegistroInventario() {
         cantidad: 1,
 
         precio_variable:
-          productoSeleccionado.precio_variable
+          productoSeleccionado.precio_variable,
+        
+        es_mano_obra: 
+          productoSeleccionado.es_mano_obra
       }
     ]);
   };
@@ -395,7 +411,8 @@ function RegistroInventario() {
       value: producto.id_producto,
       label: producto.nombre_producto,
       precio: producto.precio_producto,
-      precio_variable: producto.precio_variable
+      precio_variable: producto.precio_variable,
+      es_mano_obra: producto.es_mano_obra
     }));
 
   const opcionesClientes =
@@ -517,6 +534,7 @@ function RegistroInventario() {
                     <th>Cantidad</th>
                     <th>Valor Unitario</th>
                     <th>Total</th>
+                    <th>Mano Obra</th>
                     <th>Acciones</th>
                   </tr>
 
@@ -608,6 +626,11 @@ function RegistroInventario() {
                           Number(item.precio_producto) *
                           Number(item.cantidad)
                         ).toLocaleString("es-CO")}
+                      </td>
+
+                      <td>
+                        { item.es_mano_obra == 1 ? 'SI': 'NO'
+                        }
                       </td>
 
                       <td>

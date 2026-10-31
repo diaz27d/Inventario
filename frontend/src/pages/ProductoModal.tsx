@@ -28,9 +28,9 @@ function ProductoModal({ abierto, onClose, categorias, marcas, cargarProductos, 
   const [nombre, setnombre] = useState("");
   const [categoria, setcategoria] = useState("")
   const [marca, setmarca] = useState("")
-  const [precio, setprecio] = useState(0)
-  const [precioAdqui, setprecioAdqui] = useState(0)
-  const [stock, setstock] = useState(0)
+  const [precio, setprecio] = useState("")
+  const [precioAdqui, setprecioAdqui] = useState("")
+  const [stock, setstock] = useState("")
   const [descripcion, setdescripcion] = useState("")
 
   const user = JSON.parse(
@@ -66,9 +66,9 @@ function ProductoModal({ abierto, onClose, categorias, marcas, cargarProductos, 
           nombre_producto: nombre,
           id_categoria: categoria,
           id_marca: marca,
-          precio_producto: precio,
-          precio_adquirido_producto: precioAdqui,
-          cantidad_producto: stock,
+          precio_producto: (Number(precio.replace(/\./g, ""))),
+          precio_adquirido_producto: (Number(precioAdqui.replace(/\./g, ""))),
+          cantidad_producto: (Number(stock.replace(/\./g, ""))),
           descripcion_producto: descripcion,
           email: user.email
         })
@@ -252,10 +252,21 @@ function ProductoModal({ abierto, onClose, categorias, marcas, cargarProductos, 
               <label>Precio *</label>
 
               <input
-                type="number"
+                type="text"
                 placeholder="0"
                 value={precio}
-                onChange={(e) => setprecio(Number(e.target.value))}
+                onChange={(e) => {
+                    const valor =
+                        e.target.value.replace(/\D/g, "");
+
+                    setprecio(
+                        valor
+                            ? Number(valor)
+                                .toLocaleString("es-CO")
+                            : "0"
+                    );
+
+                }}
               />
               {errores.precio && (
                 <span className="error-text">
@@ -268,10 +279,21 @@ function ProductoModal({ abierto, onClose, categorias, marcas, cargarProductos, 
               <label>Precio Adquirido</label>
 
               <input
-                type="number"
+                type="text"
                 placeholder="0"
                 value={precioAdqui}
-                onChange={(e) => setprecioAdqui(Number(e.target.value))}
+                onChange={(e) => {
+                    const valor =
+                        e.target.value.replace(/\D/g, "");
+
+                    setprecioAdqui(
+                        valor
+                            ? Number(valor)
+                                .toLocaleString("es-CO")
+                            : "0"
+                    );
+
+                }}
               />
               {errores.precio_adquirido && (
                 <span className="error-text">
@@ -284,10 +306,21 @@ function ProductoModal({ abierto, onClose, categorias, marcas, cargarProductos, 
               <label>Stock Inicial *</label>
 
               <input
-                type="number"
+                type="text"
                 placeholder="0"
                 value={stock}
-                onChange={(e) => setstock(Number(e.target.value))}
+                onChange={(e) => {
+                    const valor =
+                        e.target.value.replace(/\D/g, "");
+
+                    setstock(
+                        valor
+                            ? Number(valor)
+                                .toLocaleString("es-CO")
+                            : "0"
+                    );
+
+                }}
               />
               {errores.stock && (
                 <span className="error-text">

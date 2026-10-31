@@ -4,6 +4,7 @@ import { ENDPOINTS } from '../config/api'
 import Swal from 'sweetalert2'
 
 import '../../css/Login.css'
+import RegistroUsuarioModal from "../pages/RegistroUsuarioModal"
 
 interface Label {
   id: number;
@@ -15,6 +16,7 @@ function Login() {
   const [password, setPassword] = useState('')
   const [labelInput, setLabelInputs] = useState<Label[]>([])
   const navigate = useNavigate()
+  const [mostrarRegistro, setMostrarRegistro] = useState(false)
 
   useEffect(() => {
     const cargarLabels = async () => {
@@ -130,10 +132,31 @@ function Login() {
           />
         </div>
 
-        <button type="submit">
-          Entrar
-        </button>
+        <div className="modal-footer">
+            <button 
+              className="iniciar-btn"
+              type="submit"
+              >
+              Entrar
+            </button>
+
+            <button
+              className="register-btn"
+              onClick={() =>
+                  setMostrarRegistro(true)
+              }
+          >
+              Registrarse
+          </button>
+        </div>
       </form>
+
+        <RegistroUsuarioModal
+          abierto={mostrarRegistro}
+          onClose={() =>
+              setMostrarRegistro(false)
+          }
+      />
     </div>
   )
 }

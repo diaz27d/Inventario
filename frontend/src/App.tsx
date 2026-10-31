@@ -10,6 +10,7 @@ import ConsolidadoReportes from './pages/ConsolidadoReportes'
 import Trabajadores from './pages/Trabajadores'
 import Clientes from './pages/Clientes'
 import DeudasClientes from './pages/DeudasClientes'
+import FacturasProveedores from './pages/FacturasProveedores'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/trabajadores" element={<Trabajadores />}/>
         <Route path="/clientes" element={<Clientes />}/>
         <Route path="/deudas-clientes" element={<DeudasClientes />}/>
+        <Route path="/facturasProveedores" element={<FacturasProveedores />}/>
       </Routes>
         
   )

@@ -23,7 +23,9 @@ interface ProducExist {
     precio_adquirido_producto: number,
     cantidad_producto: number,
     estado_producto: number,
-    descripcion_producto: string
+    descripcion_producto: string,
+    precio_variable: number,
+    es_mano_obra: number
 }
 
 interface MarcaExis {
@@ -238,6 +240,8 @@ function Productos() {
                     <th>Cantidad</th>
                     <th>Descripción</th>
                     <th>Estado</th>
+                    <th>Precio Variable</th>
+                    <th>Es mano de Obra</th>
                     <th>Acciones</th>
                     </tr>
                 </thead>
@@ -274,6 +278,30 @@ function Productos() {
                             }
                         >
                             {producto.estado_producto == 1 ? "Activo" : 'Inactivo'}
+                        </span>
+                        </td>
+
+                        <td>
+                        <span
+                            className={
+                            producto.precio_variable == 1
+                                ? "estado activo"
+                                : "estado inactivo"
+                            }
+                        >
+                            {producto.precio_variable == 1 ? "SI" : 'NO'}
+                        </span>
+                        </td>
+
+                        <td>
+                        <span
+                            className={
+                            producto.es_mano_obra == 1
+                                ? "estado activo"
+                                : "estado inactivo"
+                            }
+                        >
+                            {producto.es_mano_obra == 1 ? "SI" : 'NO'}
                         </span>
                         </td>
 

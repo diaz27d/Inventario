@@ -38,6 +38,9 @@ export const ENDPOINTS = {
   TRABAJADORESCOMBOS: `${API_URL}/TrabajadoresCombos`,
   CONSOLIDADOREPORTES: `${API_URL}/ConsolidadoReportes`,
   EXPORTAREXCEL: `${API_URL}/ExportarExcel`,
+  FACTURASPROVEEDOR: `${API_URL}/FacturasExistentes`,
+  GUARDARFACTURAPROVEEDOR: `${API_URL}/GuardarFacturas`,
+  ACTUALIZARFACTURAPROVEEDOR: `${API_URL}/ActualizarFacturas`,
 }
 
 export default API_URL

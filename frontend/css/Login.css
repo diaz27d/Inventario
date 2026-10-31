@@ -62,8 +62,8 @@
   border-color: #1976d2;
 }
 
-.login-form button {
-  width: 50%;
+.iniciar-btn {
+  width: 45%;
   padding: 12px;
   border: none;
   background: #1976d2;
@@ -73,6 +73,74 @@
   font-size: 16px;
 }
 
-.login-form button:hover {
+.iniciar-btn:hover {
   background: #1565c0;
 }
+
+.register-btn {
+    width: 45%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #64748b;
+    color: white;
+    cursor: pointer;
+}
+
+.register-btn:hover {
+    background: #475569;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,23,42,.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-registro {
+    width: 500px;
+    max-width: 95%;
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.25);
+}
+
+.modal-registro h2 {
+    text-align: center;
+    color: #1e293b;
+    margin-bottom: 25px;
+}
+
+.modal-registro .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.modal-registro label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.modal-registro input {
+    height: 48px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 0 15px;
+    font-size: 15px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+

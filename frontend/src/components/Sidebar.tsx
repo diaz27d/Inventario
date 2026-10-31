@@ -12,7 +12,8 @@ import {
   FaUsers,
   FaUserTie,
   FaMoneyBillWave,
-  FaWrench
+  FaWrench,
+  FaMoneyBillAlt 
 } from "react-icons/fa";
 
 import {  } from "react-router-dom";
@@ -183,6 +184,12 @@ function Sidebar() {
         <li>
           <Link to="/consolidado-reportes">
             <FaChartBar /> Consolidado Reportes
+          </Link>
+        </li>
+
+        <li>
+          <Link to="/facturasProveedores">
+            <FaMoneyBillAlt /> Facturas Proveedores
           </Link>
         </li>
 

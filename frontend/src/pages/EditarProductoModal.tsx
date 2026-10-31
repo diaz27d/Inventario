@@ -26,13 +26,15 @@ function EditarProductoModal({
   const [nombre, setNombre] = useState("");
   const [categoria, setCategoria] = useState("");
   const [marca, setMarca] = useState("");
-  const [precio, setPrecio] = useState(0);
-  const [precioAdquirido, setPrecioAdquirido] = useState(0);
-  const [stock, setStock] = useState(0);
+  const [precio, setPrecio] = useState("");
+  const [precioAdquirido, setPrecioAdquirido] = useState("");
+  const [stock, setStock] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [IdProducto, setIdProducto] = useState(0);
   const [estado, setEstado] = useState(true);
-  const [precioVariable, setprecioVariable] = useState(true);
+  const [precioVariable, setprecioVariable] = useState(false);
+  const [esManoObra, setesManoObra] = useState(false);
+  
 
   const [errores, setErrores] = useState({
     precio: "",
@@ -56,13 +58,22 @@ function EditarProductoModal({
       String(producto.id_marca || "")
     );
     setPrecio(
-      Number(producto.precio_producto || 0)
+      producto.precio_producto
+                            ? Number(producto.precio_producto)
+                                .toLocaleString("es-CO")
+                            : "0"
     );
     setPrecioAdquirido(
-      Number(producto.precio_adquirido_producto || 0)
+      producto.precio_adquirido_producto
+                            ? Number(producto.precio_adquirido_producto)
+                                .toLocaleString("es-CO")
+                            : "0"
     );
     setStock(
-      Number(producto.cantidad_producto || 0)
+      producto.cantidad_producto
+                            ? Number(producto.cantidad_producto)
+                                .toLocaleString("es-CO")
+                            : "0"
     );
     setDescripcion(
       String(producto.descripcion_producto || "")
@@ -73,11 +84,20 @@ function EditarProductoModal({
       producto.estado_producto === true
     );
 
-    setprecioVariable(
-      producto.precio_variable === 1 ||
-      producto.precio_variable === true
+    setesManoObra(
+      producto.es_mano_obra === 1 ||
+      producto.es_mano_obra === true
     );
 
+    setprecioVariable(
+      producto.precio_variable === 1 ||
+      producto.precio_variable === true || 
+      producto.es_mano_obra === 1 ||
+      producto.es_mano_obra === true
+    );
+
+
+    
   }, [producto]);
 
   if (!abierto) return null;
@@ -93,7 +113,7 @@ function EditarProductoModal({
 
     let valido = true;
 
-
+    debugger;
     if (!precio || Number(precio) <= 0) {
       nuevosErrores.precio =
         "El precio debe ser mayor a cero";
@@ -143,12 +163,13 @@ function EditarProductoModal({
             nombre_producto: nombre,
             categoria_producto: categoria,
             marca_producto: marca,
-            precio_producto: precio,
-            precio_adquirido_producto:precioAdquirido,
-            cantidad_producto: stock,
+            precio_producto: (Number(precio.replace(/\./g, ""))),
+            precio_adquirido_producto: (Number(precioAdquirido.replace(/\./g, ""))),
+            cantidad_producto: (Number(stock.replace(/\./g, ""))),
             descripcion_producto: descripcion,
             estado_producto: estado ? 1 : 0 ,
-            precio_variable: precioVariable ? 1 : 0
+            precio_variable: precioVariable ? 1 : 0,
+            es_mano_obra: esManoObra ? 1 : 0
           })
         }
       );
@@ -295,10 +316,21 @@ function EditarProductoModal({
               <label>Precio *</label>
 
               <input
-                type="number"
+                type="text"
                 placeholder="0"
                 value={precio}
-                onChange={(e) => setPrecio(Number(e.target.value))}
+                onChange={(e) => {
+                    const valor =
+                        e.target.value.replace(/\D/g, "");
+
+                    setPrecio(
+                        valor
+                            ? Number(valor)
+                                .toLocaleString("es-CO")
+                            : "0"
+                    );
+
+                }}
               />
               {errores.precio && (
                 <span className="error-text">
@@ -312,10 +344,21 @@ function EditarProductoModal({
               <label>Precio Adquirido</label>
 
               <input
-                type="number"
+                type="text"
                 placeholder="0"
                 value={precioAdquirido}
-                onChange={(e) => setPrecioAdquirido(Number(e.target.value))}
+                onChange={(e) => {
+                    const valor =
+                        e.target.value.replace(/\D/g, "");
+
+                    setPrecioAdquirido(
+                        valor
+                            ? Number(valor)
+                                .toLocaleString("es-CO")
+                            : "0"
+                    );
+
+                }}
               />
               {errores.precio_adquirido && (
                 <span className="error-text">
@@ -329,10 +372,21 @@ function EditarProductoModal({
               <label>Stock Inicial *</label>
 
               <input
-                type="number"
+                type="text"
                 placeholder="0"
                 value={stock}
-                onChange={(e) => setStock(Number(e.target.value))}
+                onChange={(e) => {
+                    const valor =
+                        e.target.value.replace(/\D/g, "");
+
+                    setStock(
+                        valor
+                            ? Number(valor)
+                                .toLocaleString("es-CO")
+                            : "0"
+                    );
+
+                }}
               />
               {errores.stock && (
                 <span className="error-text">
@@ -402,6 +456,32 @@ function EditarProductoModal({
 
           </div>
           
+          <div className="estado-container">
+
+              <label className="switch">
+                  <input
+                      type="checkbox"
+                      checked={esManoObra}
+                      onChange={(e) => {
+                        const checked =
+                            e.target.checked;
+
+                        setesManoObra(checked);
+
+                        if (checked) {
+                            setprecioVariable(true);
+                      }
+                    }}
+                  />
+
+                  <span className="slider"></span>
+              </label>
+
+              <span className="estado-label">
+                  {esManoObra ? "Es mano de obra" : "No es mano de obra"}
+              </span>
+
+          </div>
 
           
 

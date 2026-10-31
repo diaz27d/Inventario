@@ -174,3 +174,23 @@
 
     cursor: pointer;
 }
+
+.btn-imprimir {
+
+    background: #16a34a;
+
+    color: white;
+
+    border: none;
+
+    padding: 12px 18px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.btn-imprimir:hover {
+
+    background: #15803d;
+}

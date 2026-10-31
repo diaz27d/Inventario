@@ -272,7 +272,7 @@ export default class DasboardsController {
                     (1000 * 60 * 60 * 24)
                 )
 
-            if (diferenciaDias >= 0 && diferenciaDias <= Number(cantidadNumeroDias[0].valor)) {
+            if (diferenciaDias >= 0 && diferenciaDias <= Number(cantidadNumeroDiasFacturas[0].valor)) {
 
                 notificaciones.push({
                     tipo: 'factura',

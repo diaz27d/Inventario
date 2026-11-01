@@ -355,6 +355,11 @@ export default class InventariosController {
         'me.id_medio_pago',
         'vtm.id_medio_pago'
       )
+      .innerJoin(
+        'users as us',
+        'us.email',
+        'vtm.usuario'
+      )
       .select(
         'vtm.id_valor_total',
         'vtm.fecha_movimiento',
@@ -363,7 +368,8 @@ export default class InventariosController {
         'vtm.valor_total',
         'vtm.valor_pagado',
         'vtm.cuenta_por_cobrar',
-        'me.medio_pago'
+        'me.medio_pago',
+        'us.full_name'
       )
       .whereBetween(
         'vtm.fecha_movimiento',
@@ -451,6 +457,12 @@ export default class InventariosController {
         header: 'Medio pago',
         key: 'medio_pago',
         width: 20
+      },
+
+       {
+        header: 'Vendedor',
+        key: 'full_name',
+        width: 35
       },
 
       {

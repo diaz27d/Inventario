@@ -77,7 +77,7 @@ function DetalleVentaModal({
 
     const imprimirVenta = () => {
 
-    const contenido = `
+    /*const contenido = `
         <html>
         <head>
             <title>Detalle Venta</title>
@@ -225,7 +225,255 @@ function DetalleVentaModal({
         </body>
 
         </html>
-    `;
+    `;*/
+    
+    const contenido = `
+        <html>
+
+        <head>
+
+            <title>Ticket Venta</title>
+
+            <style>
+
+                @page {
+                    size: auto;
+                    margin: 0;
+                }
+
+                body {
+
+                    width: 100%;
+
+                    margin: 0;
+
+                    padding: 1mm;
+
+                    font-family: Arial, sans-serif;
+
+                    font-size: 12px;
+
+                    color: #000;
+
+                }
+
+                .empresa {
+
+                    text-align: left;
+
+                    font-size: 15px;
+
+                    font-weight: bold;
+
+                    margin-bottom: 10px;
+
+                }
+
+                .linea {
+
+                    border-top: 1px dashed black;
+
+                    margin: 8px 0;
+
+                }
+
+                .fila {
+
+                    display: flex;
+
+                    justify-content: space-between;
+
+                    margin-bottom: 4px;
+
+                }
+
+                table {
+
+                    width: 50%;
+
+                    border-collapse: collapse;
+
+                    margin-top: 5px;
+
+                    font-size: 12px;
+
+                }
+
+                th {
+
+                    text-align: left;
+
+                    border-bottom: 1px dashed black;
+
+                    padding-bottom: 0px;
+
+                }
+
+                td {
+
+                    padding: 0px 0;
+
+                }
+
+                .totales {
+
+                    margin-top: 2px;
+
+                }
+
+                .totales .fila {
+
+                    font-weight: bold;
+
+                }
+
+                .footer {
+
+                    text-align: left;
+
+                    margin-top: 12px;
+
+                    font-size: 8px;
+
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            <div class="empresa">
+
+                TIENDA EL CICLISTA
+
+            </div>
+
+            <div class="linea"></div>
+
+            <div>
+
+                <strong>Fecha:</strong><br/>
+                ${idMovimiento.fecha_movimiento}
+
+            </div>
+
+            <br/>
+
+            <div>
+
+                <strong>Cliente:</strong><br/>
+                ${idMovimiento.nombre_cliente}
+
+            </div>
+
+            <div class="linea"></div>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th style="width:25%">Producto</th>
+                        <th style="width:10%">Cant</th>
+                        <th style="width:25%; text-align:right"> Total </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${detalleVenta.map(item => `
+
+                        <tr>
+
+                            <td>
+                                ${item.nombre_producto}
+                            </td>
+
+                            <td align="center">
+                                ${item.cantidad_movimiento}
+                            </td>
+
+                            <td align="center">
+                                ${Number(item.total)
+                                    .toLocaleString("es-CO")}
+                            </td>
+
+                        </tr>
+
+                    `).join("")}
+
+                </tbody>
+
+            </table>
+
+            <div class="linea"></div>
+
+            <div class="totales">
+
+                <div style="width:100%">
+
+                    <span>Total:</span>
+
+                    <span>
+
+                        $${Number(
+                            idMovimiento.valor_total
+                        ).toLocaleString("es-CO")}
+
+                    </span>
+
+                </div>
+
+                <div style="width:100%">
+
+                    <span>Pagado:</span>
+
+                    <span>
+
+                        $${Number(
+                            resumenVenta.valor_pagado
+                        ).toLocaleString("es-CO")}
+
+                    </span>
+
+                </div>
+
+                <div style="width:100%">
+
+                    <span>Pendiente:</span>
+
+                    <span>
+
+                        $${Number(
+                            resumenVenta.cuenta_por_cobrar
+                        ).toLocaleString("es-CO")}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="linea"></div>
+
+            <div class="footer">
+
+                Gracias por su compra
+
+                <br/>
+
+                Conserve este comprobante
+
+            </div>
+
+        </body>
+
+        </html>
+        `;
 
     const ventana =
         window.open(
@@ -234,7 +482,7 @@ function DetalleVentaModal({
             'width=900,height=700'
         );
 
-        if (ventana) {
+        /*if (ventana) {
 
             ventana.document.write(
                 contenido
@@ -246,8 +494,24 @@ function DetalleVentaModal({
 
             ventana.print();
 
-        }
+        }*/
+        if (ventana) {
 
+            ventana.document.write(contenido);
+
+            ventana.document.close();
+
+            ventana.focus();
+
+            setTimeout(() => {
+
+                ventana.print();
+
+                ventana.close();
+
+            }, 500);
+
+        }
     };
 
     return (

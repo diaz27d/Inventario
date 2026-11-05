@@ -190,7 +190,7 @@ export default class DasboardsController {
                 (1000 * 60 * 60 * 24)
             )
 
-            if ( diferenciaDias <= Number(cantidadNumeroDias[0].valor) && diferenciaDias >= 0) {
+            if ( diferenciaDias <= Number(cantidadNumeroDias[0].valor) /*&& diferenciaDias >= 0*/) {
                 
                 if(diferenciaDias > 0){
                     notificaciones.push({
@@ -215,7 +215,7 @@ export default class DasboardsController {
                 }
             
 
-            }else{
+            }/*else{
                 notificaciones.push({
                         tipo: 'licencia-vencida',
                         titulo: 'Licencia vencida',
@@ -225,7 +225,7 @@ export default class DasboardsController {
                         licencia.valor
 
                 })
-            }
+            }*/
 
         }
 

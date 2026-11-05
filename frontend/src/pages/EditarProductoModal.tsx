@@ -255,7 +255,7 @@ function EditarProductoModal({
               placeholder="Ej. Aceite"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
-              disabled
+              
             />
           </div>
 
@@ -270,7 +270,7 @@ function EditarProductoModal({
                   onChange={(e) =>
                     setCategoria(e.target.value)
                   }
-                  disabled
+                  
                   >
                 <option>Seleccionar...</option>
                 {categorias.map((categoria) => (
@@ -293,7 +293,7 @@ function EditarProductoModal({
                   onChange={(e) =>
                     setMarca(e.target.value)
                   }
-                  disabled
+                  
                   >
                 <option>Seleccionar...</option>
                   {marcas.map((marca) => (
